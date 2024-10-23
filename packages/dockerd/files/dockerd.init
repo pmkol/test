@@ -188,12 +188,21 @@ process_config() {
 	config_get ip globals ip ""
 	config_get fixed_cidr globals fixed_cidr ""
 	config_get fixed_cidr_v6 globals fixed_cidr_v6 ""
+	config_get buildkit globals buildkit "0"
+	config_get experimental globals experimental "0"
 
 	. /usr/share/libubox/jshn.sh
 	json_init
 	json_add_string "data-root" "${data_root}"
 	json_add_string "log-level" "${log_level}"
 	json_add_boolean "iptables" "${iptables}"
+	json_add_boolean "ip6tables" "${ip6tables}"
+	[ "${buildkit}" = "1" ] && {
+		json_add_object 'features'
+		json_add_boolean "buildkit" "${buildkit}"
+		json_close_object
+	}
+	[ "${experimental}" = "1" ] && json_add_boolean "experimental" "${experimental}"
 	[ -z "${log_driver}" ] || json_add_string "log-driver" "${log_driver}"
 	[ -z "${bip}" ] || json_add_string "bip" "${bip}"
 	[ -z "${registry_mirrors}" ] || json_add_array "registry-mirrors"
