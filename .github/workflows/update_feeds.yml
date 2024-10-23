@@ -23,5 +23,9 @@ jobs:
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
           git add .
-          git commit -sm "Sync - ${{env.latest_release}}"
-          git push "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" HEAD:feeds
+          if ! git diff-index --quiet HEAD --; then
+            git commit -sm "Sync - ${{env.latest_release}}"
+            git push "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" HEAD:feeds
+          else
+            echo "No changes to commit, skipping push."
+          fi
