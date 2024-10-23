@@ -57,7 +57,7 @@ rm -rf luci-app-upnp/{.git,.github}
 # download patch
 mv -f openwrt_helloworld/*.patch ./
 curl -s https://raw.githubusercontent.com/pmkol/openwrt-plus/master/openwrt/patch/docker/0001-dockerd-fix-bridge-network.patch > patch-dockerd-fix-bridge-network.patch
-curl -s https://raw.githubusercontent.com/pmkol/openwrt-plus/master/openwrt/patch/docker/0002-docker-add-buildkit-experimental-support.patch patch-dockerd-add-buildkit-experimental-support.patch
+curl -s https://raw.githubusercontent.com/pmkol/openwrt-plus/master/openwrt/patch/docker/0002-docker-add-buildkit-experimental-support.patch > patch-dockerd-add-buildkit-experimental-support.patch
 curl -s https://raw.githubusercontent.com/pmkol/openwrt-plus/master/openwrt/patch/docker/0003-dockerd-disable-ip6tables-for-bridge-network-by-defa.patch > patch-dockerd-disable-ip6tables-for-bridge-network-by-defa.patch
 curl -s https://raw.githubusercontent.com/pmkol/openwrt-plus/master/openwrt/patch/luci/applications/luci-app-frpc/001-luci-app-frpc-hide-token-openwrt-23.05.patch > patch-luci-app-frpc-hide-token.patch
 curl -s https://raw.githubusercontent.com/pmkol/openwrt-plus/master/openwrt/patch/luci/applications/luci-app-frpc/002-luci-app-frpc-add-enable-flag-openwrt-23.05.patch > patch-luci-app-frpc-add-enable-flag.patch
@@ -82,6 +82,12 @@ rm -rf openwrt-airconnect
 mv openwrt-argon/*/ ./
 rm -rf openwrt-argon
 
+# luci-app-dae
+mv immortalwrt/luci/applications/luci-app-dae ./
+sed -i 's|../../luci.mk|$(TOPDIR)/feeds/luci/luci.mk|' luci-app-dae/Makefile
+mv immortalwrt/packages/net/dae ./
+sed -i 's|../../lang|$(TOPDIR)/feeds/packages/lang|' dae/Makefile
+
 # luci-app-daed
 mv openwrt-daed/*/ ./
 rm -rf openwrt-daed
@@ -89,6 +95,12 @@ rm -rf openwrt-daed
 # add luci-app-ddns-go
 mv openwrt-ddns-go/*/ ./
 rm -rf openwrt-ddns-go
+
+# add luci-app-dufs
+mv immortalwrt/luci/applications/luci-app-dufs ./
+sed -i 's|../../luci.mk|$(TOPDIR)/feeds/luci/luci.mk|' luci-app-dufs/Makefile
+mv immortalwrt/packages/net/dufs ./
+sed -i 's|../../lang|$(TOPDIR)/feeds/packages/lang|' dufs/Makefile
 
 # add luci-app-eqosplus
 mv openwrt-eqosplus/*/ ./
@@ -125,6 +137,20 @@ rm -rf openwrt-mihomo
 mv openwrt-mosdns/*/ ./
 rm -rf openwrt-mosdns
 
+# add luci-app-msd_lite
+mv immortalwrt/luci/applications/luci-app-msd_lite ./
+sed -i 's|../../luci.mk|$(TOPDIR)/feeds/luci/luci.mk|' luci-app-msd_lite/Makefile
+mv immortalwrt/packages/net/msd_lite ./
+
+# add luci-app-nlbwmon
+mv openwrt/packages/net/nlbwmon ./
+sed -i 's/stderr 1/stderr 0/g' nlbwmon/files/nlbwmon.init
+mv openwrt/luci/applications/luci-app-nlbwmon ./
+rm -rf luci-app-nlbwmon/po/!(templates|zh_Hans)
+sed -i 's|../../luci.mk|$(TOPDIR)/feeds/luci/luci.mk|' luci-app-nlbwmon/Makefile
+sed -i 's/services/network/g' luci-app-nlbwmon/root/usr/share/luci/menu.d/luci-app-nlbwmon.json
+sed -i 's/services/network/g' luci-app-nlbwmon/htdocs/luci-static/resources/view/nlbw/config.js
+
 # add luci-app-oaf
 mv openwrt-oaf/*/ ./
 rm -rf openwrt-oaf
@@ -148,16 +174,7 @@ fi
 mv openwrt-qbittorrent/*/ ./
 rm -rf openwrt-qbittorrent
 
-# luci-app-ttyd
-sed -i 's/services/system/g' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
-sed -i '3 a\\t\t"order": 50,' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
-sed -i 's/procd_set_param stdout 1/procd_set_param stdout 0/g' feeds/packages/utils/ttyd/files/ttyd.init
-sed -i 's/procd_set_param stderr 1/procd_set_param stderr 0/g' feeds/packages/utils/ttyd/files/ttyd.init
-
-# luci-app-upnp
-rm -rf luci-app-upnp/po/!(templates|zh_Hans)
-
-# add samba4
+# add luci-app-samba4
 sed -i 's|../../lang|$(TOPDIR)/feeds/packages/lang|' samba4/Makefile
 sed -i '/workgroup/a \\n\t## enable multi-channel' samba4/files/smb.conf.template
 sed -i '/enable multi-channel/a \\tserver multi channel support = yes' samba4/files/smb.conf.template
@@ -169,10 +186,27 @@ sed -i 's/#create mask/create mask/g' samba4/files/smb.conf.template
 sed -i 's/#directory mask/directory mask/g' samba4/files/smb.conf.template
 sed -i 's/0666/0644/g;s/0777/0755/g' samba4/files/samba.config
 sed -i 's/0666/0644/g;s/0777/0755/g' samba4/files/smb.conf.template
-#sed -i 's/0666/0644/g;s/0744/0755/g;s/0777/0755/g' luci-app-samba4/htdocs/luci-static/resources/view/samba4.js
+mv openwrt/luci/applications/luci-app-samba4 ./
+sed -i 's|../../luci.mk|$(TOPDIR)/feeds/luci/luci.mk|' luci-app-samba/Makefile
+sed -i 's/0666/0644/g;s/0744/0755/g;s/0777/0755/g' luci-app-samba4/htdocs/luci-static/resources/view/samba4.js
 
-# unblockneteasemusic
+# luci-app-ttyd
+mv openwrt/luci/applications/luci-app-ttyd ./
+sed -i 's|../../luci.mk|$(TOPDIR)/feeds/luci/luci.mk|' luci-app-ttyd/Makefile
+sed -i 's/services/system/g' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
+sed -i '3 a\\t\t"order": 50,' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
+sed -i 's/procd_set_param stdout 1/procd_set_param stdout 0/g' feeds/packages/utils/ttyd/files/ttyd.init
+sed -i 's/procd_set_param stderr 1/procd_set_param stderr 0/g' feeds/packages/utils/ttyd/files/ttyd.init
+
+# add luci-app-unblockneteasemusic
 sed -i 's/解除网易云音乐播放限制/网易云音乐解锁/g' luci-app-unblockneteasemusic/root/usr/share/luci/menu.d/luci-app-unblockneteasemusic.json
+
+# add luci-app-upnp
+rm -rf luci-app-upnp/po/!(templates|zh_Hans)
+
+# add luci-app-vsftpd
+mv immortalwrt/luci/applications/luci-app-vsftpd ./
+sed -i 's|../../luci.mk|$(TOPDIR)/feeds/luci/luci.mk|' luci-app-vsftpd/Makefile
 
 # docker
 mv immortalwrt/packages/utils/docker-compose docker-compose
@@ -185,15 +219,6 @@ sed -i 's|../../lang|$(TOPDIR)/feeds/packages/lang|' docker/Makefile
 sed -i 's|../../lang|$(TOPDIR)/feeds/packages/lang|' dockerd/Makefile
 sed -i 's|../../lang|$(TOPDIR)/feeds/packages/lang|' runc/Makefile
 sed -i 's|../../lang|$(TOPDIR)/feeds/packages/lang|' docker-compose/Makefile
-
-# nlbwmon
-mv openwrt/packages/net/nlbwmon ./
-sed -i 's/stderr 1/stderr 0/g' nlbwmon/files/nlbwmon.init
-mv openwrt/luci/applications/luci-app-nlbwmon ./
-rm -rf luci-app-nlbwmon/po/!(templates|zh_Hans)
-sed -i 's|../../luci.mk|$(TOPDIR)/feeds/luci/luci.mk|' luci-app-nlbwmon/Makefile
-sed -i 's/services/network/g' luci-app-nlbwmon/root/usr/share/luci/menu.d/luci-app-nlbwmon.json
-sed -i 's/services/network/g' luci-app-nlbwmon/htdocs/luci-static/resources/view/nlbw/config.js
 
 # haproxy
 mv immortalwrt/packages/net/haproxy ./
