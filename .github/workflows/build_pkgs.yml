@@ -35,6 +35,7 @@ jobs:
       - name: Display Packages
         run: |
           echo "PACKAGES: ${{ env.packages_list }}"
+          df -h
 
       - name: Build Packages
         uses: pmkol/openwrt-gh-action-sdk@main
