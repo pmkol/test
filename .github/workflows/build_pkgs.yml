@@ -2,6 +2,11 @@ name: Build OpenWrt Packages
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - feeds
+    paths:
+      - 'packages/**'
 
 jobs:
   build:
