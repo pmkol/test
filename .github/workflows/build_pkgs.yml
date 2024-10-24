@@ -32,7 +32,8 @@ jobs:
           feeds_list=$(curl -s "https://raw.githubusercontent.com/${{ github.repository }}/feeds/packages.txt")
           echo "packages_list=$feeds_list" >> $GITHUB_ENV
 
-      - run: |
+      - name: Display Packages
+        run: |
           echo "PACKAGES: ${{ env.packages_list }}"
 
       - name: Build Packages
