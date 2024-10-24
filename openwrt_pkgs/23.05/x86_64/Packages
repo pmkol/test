@@ -1,0 +1,93 @@
+Package: liburing
+Version: 2.7-1
+Depends: libc
+License: MIT
+Section: libs
+Architecture: x86_64
+Installed-Size: 7780
+Filename: liburing_2.7-1_x86_64.ipk
+Size: 8676
+SHA256sum: b1c4d154450b930730246bc8ac500c6450ea039d20b9bbb7a6dfb9a51bc84dc1
+Description:  liburing provides helpers to setup and teardown io_uring instances,
+ and also a simplified interface for applications that don't need
+ (or want) to deal with the full kernel side implementation.
+ For more info on io_uring, please see: https://kernel.dk/io_uring.pdf
+
+Package: samba4-admin
+Version: 4.21.1-1
+Depends: libc, samba4-libs
+License: GPL-3.0-only
+Section: net
+CPE-ID: cpe:/a:samba:samba
+Architecture: x86_64
+Installed-Size: 974421
+Filename: samba4-admin_4.21.1-1_x86_64.ipk
+Size: 969464
+SHA256sum: 88736956bb57f6096e38c90506d2a05fe68db87ee51971c087ab97808d4e823d
+Description:  installs: net smbcontrol profiles rpcclient dbwrap_tool eventlogadm
+ ldbadd ldbdel ldbedit ldbmodify ldbrename ldbsearch
+ tdbbackup tdbdump tdbrestore tdbtool
+ 
+ Administration tools collection
+
+Package: samba4-client
+Version: 4.21.1-1
+Depends: libc, samba4-libs
+License: GPL-3.0-only
+Section: net
+CPE-ID: cpe:/a:samba:samba
+Architecture: x86_64
+Installed-Size: 98631
+Filename: samba4-client_4.21.1-1_x86_64.ipk
+Size: 99467
+SHA256sum: b28411b6ca1ee6fb02ac341bacbd3793dda117e19f86f8a50be3f3df3a55164f
+Description:  installs: cifsdd smbclient smbget
+ 
+ The smbclient program implements a simple ftp-like client for accessing SMB shares
+
+Package: samba4-libs
+Version: 4.21.1-1
+Depends: libc, libtirpc, libreadline8, libpopt0, libcap, zlib, libgnutls, libtasn1, libuuid1, libopenssl3, libpthread, liburing, libpam, attr, libavahi-client
+License: GPL-3.0-only
+Section: net
+CPE-ID: cpe:/a:samba:samba
+Architecture: x86_64
+Installed-Size: 9551601
+Filename: samba4-libs_4.21.1-1_x86_64.ipk
+Size: 9495768
+SHA256sum: 58d22c4a1c8abd8749d9eb52c2cbb2b80588b99ad527d72d6e7cbe54d5c8c7c1
+Description:  Samba 4.21.1 libs
+
+Package: samba4-server
+Version: 4.21.1-1
+Depends: libc, samba4-libs
+Conflicts: samba36-server
+License: GPL-3.0-only
+Section: net
+CPE-ID: cpe:/a:samba:samba
+Architecture: x86_64
+Installed-Size: 246161
+Filename: samba4-server_4.21.1-1_x86_64.ipk
+Size: 247112
+SHA256sum: 93bb3c73e2753ed10a0d050a63d0cc1e598986c712c5deb0c1144add52a088b2
+Description:  installs: smbd (nmbd) smbpasswd pdbedit testparm (nmblookup) (smbcacls sharesec)
+ (samba samba-tool ntlm_auth samba-gpupdate samba_dnsupdate samba_kcc samba_spnupdate samba_upgradedns samba_downgrade_db)
+ 
+ This provides the basic fileserver service and is the minimum needed to serve file shares.
+ HINT: https://fitzcarraldoblog.wordpress.com/2016/10/17/a-correct-method-of-configuring-samba-for-browsing-smb-shares-in-a-home-network/
+
+Package: samba4-utils
+Version: 4.21.1-1
+Depends: libc, samba4-libs
+License: GPL-3.0-only
+Section: net
+CPE-ID: cpe:/a:samba:samba
+Architecture: x86_64
+Installed-Size: 30156
+Filename: samba4-utils_4.21.1-1_x86_64.ipk
+Size: 30924
+SHA256sum: d6b553c2991d83b83ed660c2b215f6949abe2df7553bd434eb3260604bfc69bc
+Description:  installs: smbstatus smbtree mvxattr smbtar (smbcquotas)
+ 
+ Utilities collection
+
