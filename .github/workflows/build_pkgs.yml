@@ -27,7 +27,7 @@ jobs:
         env:
           ARCH: ${{ matrix.arch }}-${{ matrix.tag }}
           FEEDNAME: packages_lite
-          V: s
+          PACKAGES: airconnect alist bash-completion chinadns-ng containerd coremark dae daed ddns-go ddns-scripts-aliyun dns2socks dns2tcp docker-compose docker dockerd dufs filebrowser frp gowebdav haproxy hysteria ipt2socks liburing lua-neturl luci-app-adguardhome luci-app-airconnect luci-app-airplay2 luci-app-alist luci-app-argon-config luci-app-autoreboot luci-app-cpufreq luci-app-dae luci-app-daed luci-app-ddns-go luci-app-diskman luci-app-dufs luci-app-eqos luci-app-eqosplus luci-app-filebrowser luci-app-frpc luci-app-gowebdav luci-app-mentohust luci-app-mihomo luci-app-mosdns luci-app-msd_lite luci-app-netdata luci-app-netspeedtest luci-app-nlbwmon luci-app-oaf luci-app-openclash luci-app-passwall luci-app-passwall2 luci-app-qbittorrent luci-app-ramfree luci-app-samba4 luci-app-socat luci-app-ssr-plus luci-app-tailscale luci-app-ttyd luci-app-unblockneteasemusic luci-app-upnp luci-app-usb-printer luci-app-vlmcsd luci-app-vsftpd luci-app-wolplus luci-app-zerotier luci-theme-argon mentohust microsocks mihomo miniupnpd mosdns msd_lite naiveproxy nlbwmon oaf open-app-filter pdnsd qbittorrent qt6base qt6tools rblibtorrent redsocks2 runc samba4 shadow-tls shadowsocks-libev shadowsocks-rust shadowsocksr-libev simple-obfs sing-box speedtest-cli tcping tini trojan-plus trojan tuic-client v2dat v2ray-core v2ray-geodata v2ray-plugin vlmcsd xray-core xray-plugin zip
           INDEX: 1
           KEY_BUILD: ${{ secrets.OPENWRT_PRIVATE_KEY }}
           NO_REFRESH_CHECK: true
