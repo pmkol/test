@@ -187,7 +187,7 @@ sed -i 's/#directory mask/directory mask/g' samba4/files/smb.conf.template
 sed -i 's/0666/0644/g;s/0777/0755/g' samba4/files/samba.config
 sed -i 's/0666/0644/g;s/0777/0755/g' samba4/files/smb.conf.template
 mv openwrt/luci/applications/luci-app-samba4 ./
-sed -i 's|../../luci.mk|$(TOPDIR)/feeds/luci/luci.mk|' luci-app-samba/Makefile
+sed -i 's|../../luci.mk|$(TOPDIR)/feeds/luci/luci.mk|' luci-app-samba4/Makefile
 sed -i 's/0666/0644/g;s/0744/0755/g;s/0777/0755/g' luci-app-samba4/htdocs/luci-static/resources/view/samba4.js
 
 # luci-app-ttyd
@@ -203,6 +203,7 @@ sed -i 's/解除网易云音乐播放限制/网易云音乐解锁/g' luci-app-un
 
 # add luci-app-upnp
 rm -rf luci-app-upnp/po/!(templates|zh_Hans)
+sed -i 's|../../luci.mk|$(TOPDIR)/feeds/luci/luci.mk|' luci-app-upnp/Makefile
 
 # add luci-app-vsftpd
 mv immortalwrt/luci/applications/luci-app-vsftpd ./
