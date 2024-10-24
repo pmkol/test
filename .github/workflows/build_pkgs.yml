@@ -27,15 +27,31 @@ jobs:
           fetch-depth: 1
           ref: feeds
 
+      - name: Create VG & LV
+        run: |
+          mnt_size=$(df -h /mnt | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//')
+          root_size=$(expr $(df -h / | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 2)
+          sudo truncate -s "$mnt_size"G /mnt/mnt.img
+          sudo truncate -s "$root_size"G /root.img
+          sudo losetup /dev/loop6 /mnt/mnt.img
+          sudo losetup /dev/loop7 /root.img
+          sudo pvcreate /dev/loop6
+          sudo pvcreate /dev/loop7
+          sudo vgcreate github /dev/loop6 /dev/loop7
+          sudo lvcreate -n runner -l 100%FREE github
+          sudo mkfs.xfs /dev/github/runner
+
+      - name: Mount LV
+        run: |
+          sudo mkdir -p /builder
+          sudo mount /dev/github/runner /builder
+          sudo chown -R runner:runner /builder
+          df -Th
+
       - name: Fetch Packages
         run: |
           feeds_list=$(curl -s "https://raw.githubusercontent.com/${{ github.repository }}/feeds/packages.txt")
           echo "packages_list=$feeds_list" >> $GITHUB_ENV
-
-      - name: Display Packages
-        run: |
-          echo "PACKAGES: ${{ env.packages_list }}"
-          df -h
 
       - name: Build Packages
         uses: pmkol/openwrt-gh-action-sdk@main
