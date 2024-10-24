@@ -27,12 +27,18 @@ jobs:
           fetch-depth: 1
           ref: feeds
 
+      - name: Fetch Packages
+        run: |
+          feeds_list=$(curl -s https://raw.githubusercontent.com/${{ github.repository }}/feeds/packages.txt)
+          echo "packages_list=$feeds_list" >> $GITHUB_ENV
+          echo "packages_list=${{ env.packages_list }}"
+
       - name: Build Packages
         uses: pmkol/openwrt-gh-action-sdk@main
         env:
           ARCH: ${{ matrix.arch }}-${{ matrix.tag }}
           FEEDNAME: packages_lite
-          PACKAGES: airconnect alist bash-completion chinadns-ng containerd coremark dae daed ddns-go ddns-scripts-aliyun dns2socks dns2tcp docker-compose docker dockerd dufs filebrowser frp gowebdav haproxy hysteria ipt2socks liburing lua-neturl luci-app-adguardhome luci-app-airconnect luci-app-airplay2 luci-app-alist luci-app-argon-config luci-app-autoreboot luci-app-cpufreq luci-app-dae luci-app-daed luci-app-ddns-go luci-app-diskman luci-app-dufs luci-app-eqos luci-app-eqosplus luci-app-filebrowser luci-app-frpc luci-app-gowebdav luci-app-mentohust luci-app-mihomo luci-app-mosdns luci-app-msd_lite luci-app-netdata luci-app-netspeedtest luci-app-nlbwmon luci-app-oaf luci-app-openclash luci-app-passwall luci-app-passwall2 luci-app-qbittorrent luci-app-ramfree luci-app-samba4 luci-app-socat luci-app-ssr-plus luci-app-tailscale luci-app-ttyd luci-app-unblockneteasemusic luci-app-upnp luci-app-usb-printer luci-app-vlmcsd luci-app-vsftpd luci-app-wolplus luci-app-zerotier luci-theme-argon mentohust microsocks mihomo miniupnpd mosdns msd_lite naiveproxy nlbwmon oaf open-app-filter pdnsd qbittorrent qt6base qt6tools rblibtorrent redsocks2 runc samba4 shadow-tls shadowsocks-libev shadowsocks-rust shadowsocksr-libev simple-obfs sing-box speedtest-cli tcping tini trojan-plus trojan tuic-client v2dat v2ray-core v2ray-geodata v2ray-plugin vlmcsd xray-core xray-plugin zip
+          PACKAGES: ${{ env.packages_list }}
           INDEX: 1
           KEY_BUILD: ${{ secrets.OPENWRT_PRIVATE_KEY }}
           NO_REFRESH_CHECK: true
@@ -59,7 +65,7 @@ jobs:
           git config --global user.email 'actions@github.com'
           git add openwrt_pkgs/23.05/${{ matrix.arch }}
           if ! git diff-index --quiet HEAD --; then
-            git commit -sm "Update ${{ matrix.arch }} packages_lite - ${{env.latest_release}}"
+            git commit -sm "Update packages_lite - ${{env.latest_release}}"
             git push "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" HEAD:packages --force
           else
             echo "No changes to commit, skipping push."
