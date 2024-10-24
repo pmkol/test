@@ -31,7 +31,7 @@ jobs:
         run: |
           feeds_list=$(curl -s https://raw.githubusercontent.com/${{ github.repository }}/feeds/packages.txt)
           echo "packages_list=$feeds_list" >> $GITHUB_ENV
-          echo "PACKAGES: ${{ env.packages_list }}"
+          echo "PACKAGES: $packages_list"
 
       - name: Build Packages
         uses: pmkol/openwrt-gh-action-sdk@main
