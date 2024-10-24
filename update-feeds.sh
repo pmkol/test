@@ -224,3 +224,6 @@ sed -i 's|../../lang|$(TOPDIR)/feeds/packages/lang|' docker-compose/Makefile
 mv immortalwrt/packages/net/haproxy ./
 
 rm -rf openwrt immortalwrt
+
+cd ../
+ls -d ./packages/*/ | awk -F'/' '{print $3}' | paste -sd ' ' - > packages.txt
