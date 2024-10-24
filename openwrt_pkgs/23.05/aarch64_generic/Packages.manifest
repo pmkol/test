@@ -1,0 +1,118 @@
+Package: liburing
+Version: 2.7-1
+Depends: libc
+Source: /feed/packages/liburing
+SourceName: liburing
+License: MIT
+LicenseFiles: COPYING
+Section: libs
+SourceDateEpoch: 1729711765
+Maintainer: Christian Lachner <gladiac@gmail.com>
+Architecture: aarch64_generic
+Installed-Size: 8200
+Filename: liburing_2.7-1_aarch64_generic.ipk
+Size: 9011
+SHA256sum: 1a9c80bc06e1bda0cd2fe6dbca4963fcf7c6dd6352823451c7ed07bfc5320200
+Description:  liburing provides helpers to setup and teardown io_uring instances,
+ and also a simplified interface for applications that don't need
+ (or want) to deal with the full kernel side implementation.
+ For more info on io_uring, please see: https://kernel.dk/io_uring.pdf
+
+Package: samba4-admin
+Version: 4.21.1-1
+Depends: libc, samba4-libs
+Source: /feed/packages/samba4
+SourceName: samba4-admin
+License: GPL-3.0-only
+LicenseFiles: COPYING
+Section: net
+SourceDateEpoch: 1729711765
+CPE-ID: cpe:/a:samba:samba
+Architecture: aarch64_generic
+Installed-Size: 1005712
+Filename: samba4-admin_4.21.1-1_aarch64_generic.ipk
+Size: 997724
+SHA256sum: e55a0ecda754704c78f1e786e0cb9ecc75645b63a35986af9baf38dcf130cdb5
+Description:  installs: net smbcontrol profiles rpcclient dbwrap_tool eventlogadm
+ ldbadd ldbdel ldbedit ldbmodify ldbrename ldbsearch
+ tdbbackup tdbdump tdbrestore tdbtool
+ 
+ Administration tools collection
+
+Package: samba4-client
+Version: 4.21.1-1
+Depends: libc, samba4-libs
+Source: /feed/packages/samba4
+SourceName: samba4-client
+License: GPL-3.0-only
+LicenseFiles: COPYING
+Section: net
+SourceDateEpoch: 1729711765
+CPE-ID: cpe:/a:samba:samba
+Architecture: aarch64_generic
+Installed-Size: 103104
+Filename: samba4-client_4.21.1-1_aarch64_generic.ipk
+Size: 103460
+SHA256sum: 81195b8ebe5bccd984f38799e01dc1f18a66af303bb010d585dbe3a180d997df
+Description:  installs: cifsdd smbclient smbget
+ 
+ The smbclient program implements a simple ftp-like client for accessing SMB shares
+
+Package: samba4-libs
+Version: 4.21.1-1
+Depends: libc, libtirpc, libreadline8, libpopt0, libcap, zlib, libgnutls, libtasn1, libuuid1, libopenssl3, libpthread, liburing, libpam, attr, libavahi-client
+Source: /feed/packages/samba4
+SourceName: samba4-libs
+License: GPL-3.0-only
+LicenseFiles: COPYING
+Section: net
+SourceDateEpoch: 1729711765
+CPE-ID: cpe:/a:samba:samba
+Architecture: aarch64_generic
+Installed-Size: 9622354
+Filename: samba4-libs_4.21.1-1_aarch64_generic.ipk
+Size: 9536184
+SHA256sum: 50173fff2958e9faf6ba86f79d134e64e232fb8d7b3972af7bf8357d2f355646
+Description:  Samba 4.21.1 libs
+
+Package: samba4-server
+Version: 4.21.1-1
+Depends: libc, samba4-libs
+Conflicts: samba36-server
+Source: /feed/packages/samba4
+SourceName: samba4-server
+License: GPL-3.0-only
+LicenseFiles: COPYING
+Section: net
+SourceDateEpoch: 1729711765
+CPE-ID: cpe:/a:samba:samba
+Architecture: aarch64_generic
+Installed-Size: 257852
+Filename: samba4-server_4.21.1-1_aarch64_generic.ipk
+Size: 257783
+SHA256sum: db6a91dfcd7ba788c339a0fa03e320998936ddebd5a3e82ebc43ca46b8cca4f9
+Description:  installs: smbd (nmbd) smbpasswd pdbedit testparm (nmblookup) (smbcacls sharesec)
+ (samba samba-tool ntlm_auth samba-gpupdate samba_dnsupdate samba_kcc samba_spnupdate samba_upgradedns samba_downgrade_db)
+ 
+ This provides the basic fileserver service and is the minimum needed to serve file shares.
+ HINT: https://fitzcarraldoblog.wordpress.com/2016/10/17/a-correct-method-of-configuring-samba-for-browsing-smb-shares-in-a-home-network/
+
+Package: samba4-utils
+Version: 4.21.1-1
+Depends: libc, samba4-libs
+Source: /feed/packages/samba4
+SourceName: samba4-utils
+License: GPL-3.0-only
+LicenseFiles: COPYING
+Section: net
+SourceDateEpoch: 1729711765
+CPE-ID: cpe:/a:samba:samba
+Architecture: aarch64_generic
+Installed-Size: 34476
+Filename: samba4-utils_4.21.1-1_aarch64_generic.ipk
+Size: 34834
+SHA256sum: aad0fd1812eaa96fc9867252ac0eccf8c6453e4e72012b1613d687d94971ac20
+Description:  installs: smbstatus smbtree mvxattr smbtar (smbcquotas)
+ 
+ Utilities collection
+

@@ -1,0 +1,1 @@
+{"architecture": "aarch64_generic", "packages":{"liburing": "2.7-1", "samba4-admin": "4.21.1-1", "samba4-client": "4.21.1-1", "samba4-libs": "4.21.1-1", "samba4-server": "4.21.1-1", "samba4-utils": "4.21.1-1"}}
