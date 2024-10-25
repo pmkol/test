@@ -115,7 +115,7 @@ jobs:
           git add openwrt_pkgs/23.05/${{ matrix.arch }}
           if ! git diff-index --quiet HEAD --; then
             git commit -sm "Update packages_lite - ${{env.latest_release}}"
-            git push "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" HEAD:packages --force
+            git push "https://${{ github.actor }}:${{ secrets.OPENWRT_WORKFLOW_TOKEN }}@github.com/${{ github.repository }}" HEAD:packages --force
           else
             echo "No changes to commit, skipping push."
           fi
