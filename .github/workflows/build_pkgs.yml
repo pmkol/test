@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: Build ${{ matrix.arch }}-${{ matrix.tag }}
+    name: Build ${{ matrix.arch }}-${{ matrix.tag }} Packages
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
