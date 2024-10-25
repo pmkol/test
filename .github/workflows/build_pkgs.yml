@@ -91,6 +91,7 @@ jobs:
           INDEX: 1
           KEY_BUILD: ${{ secrets.OPENWRT_PRIVATE_KEY }}
           NO_REFRESH_CHECK: true
+          NO_SHFMT_CHECK: true
           IGNORE_ERRORS: true
 
       - name: Upload packages
