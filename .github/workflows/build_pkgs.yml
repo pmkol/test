@@ -69,7 +69,7 @@ jobs:
           fetch-depth: 1
           ref: feeds
 
-      - name: Fetch Packages
+      - name: Fetch packages
         run: |
           echo -e "\n\e[1;32mMemory:\e[0m"
           sudo free -h
@@ -79,7 +79,7 @@ jobs:
           feeds_list=$(curl -s "https://raw.githubusercontent.com/${{ github.repository }}/feeds/packages.txt")
           echo "packages_list=$feeds_list" >> $GITHUB_ENV
 
-      - name: Build Packages
+      - name: Build packages
         uses: pmkol/openwrt-gh-action-sdk@main
         env:
           ARCH: ${{ matrix.arch }}-${{ matrix.tag }}
@@ -90,7 +90,7 @@ jobs:
           NO_REFRESH_CHECK: true
           IGNORE_ERRORS: true
 
-      - name: Upload packages_lite
+      - name: Upload packages
         run: |
           mkdir -p /tmp/openwrt_pkgs/${{ matrix.arch }}/
           mv bin/packages/${{ matrix.arch }}/packages_lite/* /tmp/openwrt_pkgs/${{ matrix.arch }}
