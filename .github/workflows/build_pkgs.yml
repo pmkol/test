@@ -71,13 +71,17 @@ jobs:
 
       - name: Fetch packages
         run: |
+          feeds_list=$(curl -s "https://raw.githubusercontent.com/${{ github.repository }}/feeds/packages.txt")
+          echo "packages_list=$feeds_list" >> $GITHUB_ENV
+
+      - name: Display Packages
+        run: |
           echo -e "\n\e[1;32mMemory:\e[0m"
           sudo free -h
           echo -e "\e[1;32mAvailable Storage:\e[0m"
           sudo df -Th
+          echo -e "PACKAGES: ${{ env.packages_list }}"
           ls
-          feeds_list=$(curl -s "https://raw.githubusercontent.com/${{ github.repository }}/feeds/packages.txt")
-          echo "packages_list=$feeds_list" >> $GITHUB_ENV
 
       - name: Build packages
         uses: pmkol/openwrt-gh-action-sdk@main
