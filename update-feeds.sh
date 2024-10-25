@@ -16,13 +16,13 @@ git clone https://github.com/sirpdboy/luci-app-ddns-go openwrt-ddns-go --depth 1
 git clone https://github.com/QiuSimons/luci-app-daed openwrt-daed --depth 1
 git clone https://github.com/sbwml/openwrt_pkgs --depth 1
 git clone https://github.com/sbwml/openwrt_helloworld --depth 1
-git clone https://github.com/sbwml/luci-app-alist openwrt-alist --depth 1
+#git clone https://github.com/sbwml/luci-app-alist openwrt-alist --depth 1
 git clone https://github.com/sbwml/luci-app-airconnect openwrt-airconnect --depth 1
 git clone https://github.com/sbwml/luci-app-mentohust openwrt-mentohust --depth 1
 git clone https://github.com/sbwml/luci-app-mosdns openwrt-mosdns --depth 1
 git clone https://github.com/sbwml/luci-app-qbittorrent openwrt-qbittorrent --depth 1
 git clone https://github.com/sbwml/luci-theme-argon openwrt-argon --depth 1
-git clone https://github.com/sbwml/packages_utils_containerd containerd --depth 1
+#git clone https://github.com/sbwml/packages_utils_containerd containerd --depth 1
 git clone https://github.com/sbwml/packages_utils_docker docker --depth 1
 git clone https://github.com/sbwml/packages_utils_dockerd dockerd --depth 1
 git clone https://github.com/sbwml/packages_utils_runc runc --depth 1
@@ -44,7 +44,7 @@ rm -rf openwrt_helloworld/{luci-app-homeproxy,luci-app-mihomo,mihomo,v2ray-geoda
 rm -rf openwrt-daed/PIC
 rm -rf liburing/.git
 rm -rf samba4/{.git,README.md}
-rm -rf containerd/.git
+#rm -rf containerd/.git
 rm -rf docker/.git
 rm -rf dockerd/.git
 rm -rf runc/.git
@@ -71,8 +71,8 @@ mv openwrt_helloworld/*/ ./
 rm -rf openwrt_helloworld
 
 # add luci-app-alist
-mv openwrt-alist/*/ ./
-rm -rf openwrt-alist
+#mv openwrt-alist/*/ ./
+#rm -rf openwrt-alist
 
 # add luci-app-airconnect/*/ ./
 mv openwrt-airconnect/*/ ./
@@ -198,7 +198,6 @@ sed -i 's|../../luci.mk|$(TOPDIR)/feeds/luci/luci.mk|' luci-app-ttyd/Makefile
 sed -i 's/services/system/g' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
 sed -i '3 a\\t\t"order": 50,' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
 sed -i 's/procd_set_param stdout 1/procd_set_param stdout 0/g' feeds/packages/utils/ttyd/files/ttyd.init
-sed -i 's/procd_set_param stderr 1/procd_set_param stderr 0/g' feeds/packages/utils/ttyd/files/ttyd.init
 
 # add luci-app-unblockneteasemusic
 sed -i 's/解除网易云音乐播放限制/网易云音乐解锁/g' luci-app-unblockneteasemusic/root/usr/share/luci/menu.d/luci-app-unblockneteasemusic.json
@@ -217,7 +216,7 @@ mv immortalwrt/packages/utils/tini tini
 patch -p2 -f -s < patch-dockerd-fix-bridge-network.patch
 patch -p2 -f -s < patch-dockerd-add-buildkit-experimental-support.patch
 patch -p2 -f -s < patch-dockerd-disable-ip6tables-for-bridge-network-by-defa.patch
-sed -i 's|../../lang|$(TOPDIR)/feeds/packages/lang|' containerd/Makefile
+#sed -i 's|../../lang|$(TOPDIR)/feeds/packages/lang|' containerd/Makefile
 sed -i 's|../../lang|$(TOPDIR)/feeds/packages/lang|' docker/Makefile
 sed -i 's|../../lang|$(TOPDIR)/feeds/packages/lang|' dockerd/Makefile
 sed -i 's|../../lang|$(TOPDIR)/feeds/packages/lang|' runc/Makefile
