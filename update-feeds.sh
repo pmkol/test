@@ -187,11 +187,13 @@ sed -i 's/#directory mask/directory mask/g' samba4/files/smb.conf.template
 sed -i 's/0666/0644/g;s/0777/0755/g' samba4/files/samba.config
 sed -i 's/0666/0644/g;s/0777/0755/g' samba4/files/smb.conf.template
 mv openwrt/luci/applications/luci-app-samba4 ./
+rm -rf luci-app-samba4/po/!(templates|zh_Hans)
 sed -i 's|../../luci.mk|$(TOPDIR)/feeds/luci/luci.mk|' luci-app-samba4/Makefile
 sed -i 's/0666/0644/g;s/0744/0755/g;s/0777/0755/g' luci-app-samba4/htdocs/luci-static/resources/view/samba4.js
 
 # luci-app-ttyd
 mv openwrt/luci/applications/luci-app-ttyd ./
+rm -rf luci-app-ttyd/po/!(templates|zh_Hans)
 sed -i 's|../../luci.mk|$(TOPDIR)/feeds/luci/luci.mk|' luci-app-ttyd/Makefile
 sed -i 's/services/system/g' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
 sed -i '3 a\\t\t"order": 50,' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
