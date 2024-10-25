@@ -27,8 +27,30 @@ jobs:
           fetch-depth: 1
           ref: feeds
 
-      - name: Create VG & LV
+      - name: Free disk space
+        shell: bash
         run: |
+          set -euo pipefail
+          BUILD_MOUNT_PATH="${{ github.workspace }}"
+          sudo swapoff -a
+          sudo rm -f /swapfile /mnt/swapfile
+          sudo docker image prune -a -f
+          sudo snap set system refresh.retain=2
+          echo "::group::  Uninstall packages"
+          sudo apt-get -y purge firefox clang* gcc-12 ghc* google* llvm* mono* mongo* mysql* php*
+          sudo apt-get -y autoremove --purge
+          sudo apt-get clean
+          sudo rm -rf /etc/mysql /etc/php /usr/lib/{jvm,llvm} /usr/local /usr/src/* /var/lib/gems /var/lib/mysql /var/lib/snapd /etc/skel /opt/{microsoft,az,hostedtoolcache,cni,mssql-tools,pipx} /usr/share/{az*,dotnet,swift,miniconda,gradle*,java,kotlinc,ri,sbt} /root/{.sbt,.local,.npm} /usr/libexec/gcc/x86_64-linux-gnu/14 /usr/lib/x86_64-linux-gnu/{*clang*,*LLVM*} /home/linuxbrew
+          sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
+          rm -rf ~/{.cargo,.dotnet,.rustup}
+          echo "::endgroup::"
+          echo "::group::  Create SWAP"
+          sudo dd if=/dev/zero of="/mnt/swapfile" bs=1G count=8
+          sudo chmod 600 /mnt/swapfile
+          sudo mkswap /mnt/swapfile
+          sudo swapon /mnt/swapfile
+          echo "::endgroup::"
+          echo "::group::  Create Volume Group"
           mnt_size=$(df -h /mnt | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//')
           root_size=$(expr $(df -h / | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 2)
           sudo truncate -s "$mnt_size"G /mnt/mnt.img
@@ -39,17 +61,21 @@ jobs:
           sudo pvcreate /dev/loop7
           sudo vgcreate github /dev/loop6 /dev/loop7
           sudo lvcreate -n runner -l 100%FREE github
-          sudo mkfs.xfs /dev/github/runner
-
-      - name: Mount LV
-        run: |
-          sudo mkdir -p /builder
-          sudo mount /dev/github/runner /builder
-          sudo chown -R runner:runner /builder
-          df -Th
+          sudo mkfs.xfs /dev/mapper/github-runner
+          sudo mkdir -p "$BUILD_MOUNT_PATH"
+          sudo mount /dev/mapper/github-runner "$BUILD_MOUNT_PATH"
+          sudo chown -R runner:runner "$BUILD_MOUNT_PATH"
+          echo "::endgroup::"
+          sudo sync
+          sudo sysctl -w vm.drop_caches=3
 
       - name: Fetch Packages
         run: |
+          echo -e "\n\e[1;32mMemory:\e[0m"
+          sudo free -h
+          echo -e "\e[1;32mAvailable Storage:\e[0m"
+          sudo df -Th
+          ls
           feeds_list=$(curl -s "https://raw.githubusercontent.com/${{ github.repository }}/feeds/packages.txt")
           echo "packages_list=$feeds_list" >> $GITHUB_ENV
 
