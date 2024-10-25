@@ -22,11 +22,6 @@ jobs:
           - openwrt-23.05
 
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-          ref: feeds
-
       - name: Free disk space
         shell: bash
         run: |
@@ -68,6 +63,11 @@ jobs:
           echo "::endgroup::"
           sudo sync
           sudo sysctl -w vm.drop_caches=3
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          ref: feeds
 
       - name: Fetch Packages
         run: |
