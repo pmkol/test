@@ -14,7 +14,7 @@ git clone https://github.com/pmkol/openwrt-mihomo --depth 1
 git clone https://github.com/pmkol/v2ray-geodata --depth 1
 rm -rf immortalwrt/luci-app-homeproxy/{LICENSE,README}
 rm -rf openwrt_helloworld/{luci-app-homeproxy,luci-app-mihomo,mihomo,v2ray-geodata}
-rm -rf openwrt-daed/PIC
+rm -rf v2ray-geodata/.git
 mv -f openwrt_helloworld/*.patch ./
 
 # add helloworld
@@ -53,4 +53,4 @@ rm -rf immortalwrt
 
 # create packages list
 cd ../
-ls -d ./lite/*/ | awk -F'/' '{print $3}' | paste -sd ' ' - > packages-lite.txt
+ls -d ./lite/*/ | awk -F'/' '{print $3}' | paste -sd ' ' - > lite/.packages.txt
