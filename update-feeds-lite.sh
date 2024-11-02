@@ -53,4 +53,4 @@ rm -rf immortalwrt
 
 # create packages list
 cd ../
-ls -d ./lite/*/ | awk -F'/' '{print $3}' | paste -sd ' ' - > lite/.packages.txt
+ls -d ./lite/*/ | awk -F'/' '{print $3}' | paste -sd ' ' - > lite/packages.txt
