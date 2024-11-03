@@ -1,0 +1,47 @@
+include $(TOPDIR)/rules.mk
+
+PKG_NAME:=qosmate
+PKG_VERSION:=0.5.31
+PKG_RELEASE:=1
+
+PKG_MAINTAINER:=Markus Hütter <mh@hudra.net>
+PKG_LICENSE:=GPL-3.0-or-later
+
+include $(INCLUDE_DIR)/package.mk
+
+define Package/qosmate
+  SECTION:=net
+  CATEGORY:=Base system
+  TITLE:=QoSmate - Quality of Service management tool
+  DEPENDS:=firewall4 +ip-full +tc-full +kmod-veth +kmod-netem +kmod-sched +kmod-sched-ctinfo +kmod-sched-cake +kmod-ifb
+endef
+
+define Package/qosmate/description
+  QoSmate is a Quality of Service management tool for OpenWrt
+endef
+
+define Build/Prepare
+endef
+
+define Build/Compile
+endef
+
+define Package/qosmate/conffiles
+/etc/config/qosmate
+endef
+
+define Package/qosmate/install
+	$(INSTALL_DIR) $(1)/etc
+	$(INSTALL_DIR) $(1)/etc/config
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_DIR) $(1)/etc/uci-defaults
+	$(INSTALL_DIR) $(1)/etc/hotplug.d/iface
+
+	$(INSTALL_BIN) $(CURDIR)/files/qosmate.sh $(1)/etc/qosmate.sh
+	$(INSTALL_CONF) $(CURDIR)/files/qosmate.conf $(1)/etc/config/qosmate
+	$(INSTALL_BIN) $(CURDIR)/files/qosmate.init $(1)/etc/init.d/qosmate
+	$(INSTALL_BIN) $(CURDIR)/files/qosmate.migrate $(1)/etc/uci-defaults/99_migrate_qosmate
+	$(INSTALL_BIN) $(CURDIR)/files/qosmate.hotplug $(1)/etc/hotplug.d/iface/13-qosmate
+endef
+
+$(eval $(call BuildPackage,qosmate))
