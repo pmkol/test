@@ -1,4 +1,4 @@
-name: Update OpenWrt Feeds
+name: Update OpenWrt Feeds(Extd)
 
 on:
   workflow_dispatch:
@@ -15,17 +15,17 @@ jobs:
 
       - name: Update Feeds
         run: |
-          bash update-feeds.sh
+          bash update-feeds-extd.sh
           echo "latest_release=$(date +'%Y%m%d')" >> $GITHUB_ENV
 
       - name: Git Push
         run: |
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
-          git add .
+          git add extd
           if ! git diff-index --quiet HEAD --; then
-            git commit -sm "Sync - ${{env.latest_release}}"
-            git push "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" HEAD:feeds
+            git commit -sm "Sync upstream up to ${{env.latest_release}}"
+            git push "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" HEAD:feeds --force
           else
             echo "No changes to commit, skipping push."
           fi
