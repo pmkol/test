@@ -2,60 +2,54 @@
 
 # backup feeds
 shopt -s extglob
-mv packages /tmp
-mkdir -p packages
-cd packages
+mv extd /tmp
+mkdir -p extd
+cd extd
 
 # download feeds
 git clone https://github.com/openwrt/luci openwrt/luci -b openwrt-23.05 --depth 1
 git clone https://github.com/openwrt/packages openwrt/packages -b openwrt-23.05 --depth 1
 git clone https://github.com/immortalwrt/luci immortalwrt/luci -b master --depth 1
 git clone https://github.com/immortalwrt/packages immortalwrt/packages -b master --depth 1
-git clone https://github.com/immortalwrt/homeproxy immortalwrt/luci-app-homeproxy --depth 1
 git clone https://github.com/sirpdboy/luci-app-ddns-go openwrt-ddns-go --depth 1
-git clone https://github.com/QiuSimons/luci-app-daed openwrt-daed --depth 1
 git clone https://github.com/sbwml/openwrt_pkgs --depth 1
-git clone https://github.com/sbwml/openwrt_helloworld --depth 1
-#git clone https://github.com/sbwml/luci-app-alist openwrt-alist --depth 1
+git clone https://github.com/sbwml/luci-app-alist openwrt-alist --depth 1
 git clone https://github.com/sbwml/luci-app-airconnect openwrt-airconnect --depth 1
 git clone https://github.com/sbwml/luci-app-mentohust openwrt-mentohust --depth 1
 git clone https://github.com/sbwml/luci-app-mosdns openwrt-mosdns --depth 1
 git clone https://github.com/sbwml/luci-app-qbittorrent openwrt-qbittorrent --depth 1
 git clone https://github.com/sbwml/luci-theme-argon openwrt-argon --depth 1
-#git clone https://github.com/sbwml/packages_utils_containerd containerd --depth 1
-git clone https://github.com/sbwml/packages_utils_docker docker --depth 1
-git clone https://github.com/sbwml/packages_utils_dockerd dockerd --depth 1
-git clone https://github.com/sbwml/packages_utils_runc runc --depth 1
 git clone https://github.com/sbwml/OpenAppFilter openwrt-oaf --depth 1
 git clone https://github.com/sbwml/feeds_packages_libs_liburing liburing --depth 1
 git clone https://github.com/sbwml/feeds_packages_net_samba4 samba4 --depth 1
 git clone https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic --depth 1
 git clone https://github.com/asvow/luci-app-tailscale --depth 1
+git clone https://github.com/pmkol/openwrt-aria2 --depth 1
 git clone https://github.com/pmkol/openwrt-eqosplus --depth 1
-git clone https://github.com/pmkol/openwrt-mihomo --depth 1
-git clone https://github.com/pmkol/v2ray-geodata --depth 1
+git clone https://github.com/pmkol/packages_utils_containerd containerd --depth 1
+git clone https://github.com/pmkol/packages_utils_docker docker --depth 1
+git clone https://github.com/pmkol/packages_utils_dockerd dockerd --depth 1
+git clone https://github.com/pmkol/packages_utils_runc runc --depth 1
 git clone https://github.com/pmkol/packages_net_miniupnpd miniupnpd --depth 1
 git clone https://github.com/pmkol/luci-app-upnp --depth 1
-
-rm -rf immortalwrt/luci-app-homeproxy/{LICENSE,README}
+git clone https://github.com/pmkol/packages_net_qosmate qosmate --depth 1
+git clone https://github.com/pmkol/luci-app-qosmate --depth 1
+rm -rf openwrt_pkgs/bash-completion
 rm -rf openwrt-ddns-go/luci-app-ddns-go/README.md
-rm -rf openwrt_pkgs/{fw_download_tool,lshw,luci-app-ota,rtl_fm_streamer}
-rm -rf openwrt_helloworld/{luci-app-homeproxy,luci-app-mihomo,mihomo,v2ray-geodata}
-rm -rf openwrt-daed/PIC
 rm -rf liburing/.git
 rm -rf samba4/{.git,README.md}
-#rm -rf containerd/.git
+rm -rf containerd/.git
 rm -rf docker/.git
 rm -rf dockerd/.git
 rm -rf runc/.git
 rm -rf luci-app-unblockneteasemusic/{.git,.github,LICENSE,README.md}
 rm -rf luci-app-tailscale/{.git,.gitignore,LICENSE,README.md}
-rm -rf v2ray-geodata/.git
 rm -rf miniupnpd/{.git,.github}
 rm -rf luci-app-upnp/{.git,.github}
+rm -rf qosmate/{.git,LICENSE,README.md}
+rm -rf luci-app-qosmate/{.git,LICENSE,README.md}
 
 # download patch
-mv -f openwrt_helloworld/*.patch ./
 curl -s https://raw.githubusercontent.com/pmkol/openwrt-plus/master/openwrt/patch/docker/0001-dockerd-fix-bridge-network.patch > patch-dockerd-fix-bridge-network.patch
 curl -s https://raw.githubusercontent.com/pmkol/openwrt-plus/master/openwrt/patch/docker/0002-docker-add-buildkit-experimental-support.patch > patch-dockerd-add-buildkit-experimental-support.patch
 curl -s https://raw.githubusercontent.com/pmkol/openwrt-plus/master/openwrt/patch/docker/0003-dockerd-disable-ip6tables-for-bridge-network-by-defa.patch > patch-dockerd-disable-ip6tables-for-bridge-network-by-defa.patch
@@ -66,31 +60,17 @@ curl -s https://raw.githubusercontent.com/pmkol/openwrt-plus/master/openwrt/patc
 mv openwrt_pkgs/*/ ./
 rm -rf openwrt_pkgs
 
-# add helloworld
-mv openwrt_helloworld/*/ ./
-rm -rf openwrt_helloworld
-
 # add luci-app-alist
-#mv openwrt-alist/*/ ./
-#rm -rf openwrt-alist
+mv openwrt-alist/*/ ./
+rm -rf openwrt-alist
 
-# add luci-app-airconnect/*/ ./
+# add luci-app-airconnect
 mv openwrt-airconnect/*/ ./
 rm -rf openwrt-airconnect
 
-# add luci-theme-argon
-mv openwrt-argon/*/ ./
-rm -rf openwrt-argon
-
-# luci-app-dae
-mv immortalwrt/luci/applications/luci-app-dae ./
-sed -i 's|../../luci.mk|$(TOPDIR)/feeds/luci/luci.mk|' luci-app-dae/Makefile
-mv immortalwrt/packages/net/dae ./
-sed -i 's|../../lang|$(TOPDIR)/feeds/packages/lang|' dae/Makefile
-
-# luci-app-daed
-mv openwrt-daed/*/ ./
-rm -rf openwrt-daed
+# add luci-app-aria2
+mv openwrt-aria2/*/ ./
+rm -rf openwrt-aria2
 
 # add luci-app-ddns-go
 mv openwrt-ddns-go/*/ ./
@@ -129,10 +109,6 @@ sed -i '/procd_open_instance/i\\t\[ "$enable" -ne 1 \] \&\& return 1\n' frp/file
 mv openwrt-mentohust/*/ ./
 rm -rf openwrt-mentohust
 
-# add luci-app-mihomo
-mv openwrt-mihomo/*/ ./
-rm -rf openwrt-mihomo
-
 # add luci-app-mosdns
 mv openwrt-mosdns/*/ ./
 rm -rf openwrt-mosdns
@@ -155,21 +131,6 @@ sed -i 's/services/network/g' luci-app-nlbwmon/htdocs/luci-static/resources/view
 mv openwrt-oaf/*/ ./
 rm -rf openwrt-oaf
 
-# add luci-app-passwall
-PASSWALL_VERSION=$(curl -s "https://api.github.com/repos/xiaorouji/openwrt-passwall/tags" | jq -r '.[0].name')
-if [ "$(grep ^PKG_VERSION luci-app-passwall/Makefile | cut -d '=' -f 2 | tr -d ' ')" != "$PASSWALL_VERSION" ]; then
-    rm -rf luci-app-passwall
-    git clone https://github.com/xiaorouji/openwrt-passwall.git -b "$PASSWALL_VERSION" --depth 1
-    patch -p1 -f -s -d openwrt-passwall < patch-luci-app-passwall.patch
-    if [ $? -eq 0 ]; then
-        rm -rf luci-app-passwall
-        mv openwrt-passwall/luci-app-passwall ./
-        rm -rf openwrt-passwall
-    else
-        rm -rf openwrt-passwall
-    fi
-fi
-
 # add luci-app-qbittorrent
 mv openwrt-qbittorrent/*/ ./
 rm -rf openwrt-qbittorrent
@@ -191,13 +152,18 @@ rm -rf luci-app-samba4/po/!(templates|zh_Hans)
 sed -i 's|../../luci.mk|$(TOPDIR)/feeds/luci/luci.mk|' luci-app-samba4/Makefile
 sed -i 's/0666/0644/g;s/0744/0755/g;s/0777/0755/g' luci-app-samba4/htdocs/luci-static/resources/view/samba4.js
 
+# add luci-theme-argon
+mv openwrt-argon/*/ ./
+rm -f luci-theme-argon/htdocs/luci-static/argon/img/bg.webp
+cp ../bg.webp luci-theme-argon/htdocs/luci-static/argon/img/bg.webp
+rm -rf openwrt-argon
+
 # luci-app-ttyd
 mv openwrt/luci/applications/luci-app-ttyd ./
 rm -rf luci-app-ttyd/po/!(templates|zh_Hans)
 sed -i 's|../../luci.mk|$(TOPDIR)/feeds/luci/luci.mk|' luci-app-ttyd/Makefile
-sed -i 's/services/system/g' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
-sed -i '3 a\\t\t"order": 50,' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
-sed -i 's/procd_set_param stdout 1/procd_set_param stdout 0/g' feeds/packages/utils/ttyd/files/ttyd.init
+sed -i 's/services/system/g' luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
+sed -i '3 a\\t\t"order": 50,' luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
 
 # add luci-app-unblockneteasemusic
 sed -i 's/解除网易云音乐播放限制/网易云音乐解锁/g' luci-app-unblockneteasemusic/root/usr/share/luci/menu.d/luci-app-unblockneteasemusic.json
@@ -210,22 +176,35 @@ sed -i 's|../../luci.mk|$(TOPDIR)/feeds/luci/luci.mk|' luci-app-upnp/Makefile
 mv immortalwrt/luci/applications/luci-app-vsftpd ./
 sed -i 's|../../luci.mk|$(TOPDIR)/feeds/luci/luci.mk|' luci-app-vsftpd/Makefile
 
+# luci-mod-network
+mv openwrt/luci/modules/luci-mod-network ./
+sed -i "s/openwrt.org/www.qq.com/g" luci-mod-network/htdocs/luci-static/resources/view/network/diagnostics.js
+curl -s https://raw.githubusercontent.com/pmkol/openwrt-plus/openwrt/patch/luci/dhcp/openwrt-23.05-dhcp.js > luci-mod-network/htdocs/luci-static/resources/view/network/dhcp.js
+
+# ddns-scripts
+mv immortalwrt/packages/net/ddns-scripts ./
+
 # docker
-mv immortalwrt/packages/utils/docker-compose docker-compose
-mv immortalwrt/packages/utils/tini tini
+mv immortalwrt/packages/utils/docker-compose ./
+mv immortalwrt/packages/utils/tini ./
 patch -p2 -f -s < patch-dockerd-fix-bridge-network.patch
 patch -p2 -f -s < patch-dockerd-add-buildkit-experimental-support.patch
 patch -p2 -f -s < patch-dockerd-disable-ip6tables-for-bridge-network-by-defa.patch
-#sed -i 's|../../lang|$(TOPDIR)/feeds/packages/lang|' containerd/Makefile
+sed -i 's|../../lang|$(TOPDIR)/feeds/packages/lang|' containerd/Makefile
 sed -i 's|../../lang|$(TOPDIR)/feeds/packages/lang|' docker/Makefile
 sed -i 's|../../lang|$(TOPDIR)/feeds/packages/lang|' dockerd/Makefile
 sed -i 's|../../lang|$(TOPDIR)/feeds/packages/lang|' runc/Makefile
 sed -i 's|../../lang|$(TOPDIR)/feeds/packages/lang|' docker-compose/Makefile
 
-# haproxy
-mv immortalwrt/packages/net/haproxy ./
+# netdata
+mv openwrt/packages/admin/netdata ./
+sed -i 's/syslog/none/g' netdata/files/netdata.conf
+
+# iperf3
+mv immortalwrt/packages/net/iperf3 ./
+sed -i "s/D_GNU_SOURCE/D_GNU_SOURCE -funroll-loops/g" iperf3/Makefile
 
 rm -rf openwrt immortalwrt
 
 cd ../
-ls -d ./packages/*/ | awk -F'/' '{print $3}' | paste -sd ' ' - > packages.txt
+ls -d ./packages/*/ | awk -F'/' '{print $3}' | paste -sd ' ' - > extd/packages.txt
