@@ -13,8 +13,8 @@ git clone https://github.com/immortalwrt/luci immortalwrt/luci -b master --depth
 git clone https://github.com/immortalwrt/packages immortalwrt/packages -b master --depth 1
 git clone https://github.com/sirpdboy/luci-app-ddns-go openwrt-ddns-go --depth 1
 git clone https://github.com/sbwml/openwrt_pkgs --depth 1
-git clone https://github.com/sbwml/luci-app-alist openwrt-alist --depth 1
 git clone https://github.com/sbwml/luci-app-airconnect openwrt-airconnect --depth 1
+git clone https://github.com/sbwml/luci-app-filemanager luci-app-filemanager --depth 1
 git clone https://github.com/sbwml/luci-app-mentohust openwrt-mentohust --depth 1
 git clone https://github.com/sbwml/luci-app-mosdns openwrt-mosdns --depth 1
 git clone https://github.com/sbwml/luci-app-qbittorrent openwrt-qbittorrent --depth 1
@@ -26,10 +26,6 @@ git clone https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic --
 git clone https://github.com/asvow/luci-app-tailscale --depth 1
 git clone https://github.com/pmkol/openwrt-aria2 --depth 1
 git clone https://github.com/pmkol/openwrt-eqosplus --depth 1
-git clone https://github.com/pmkol/packages_utils_containerd containerd --depth 1
-git clone https://github.com/pmkol/packages_utils_docker docker --depth 1
-git clone https://github.com/pmkol/packages_utils_dockerd dockerd --depth 1
-git clone https://github.com/pmkol/packages_utils_runc runc --depth 1
 git clone https://github.com/pmkol/packages_net_miniupnpd miniupnpd --depth 1
 git clone https://github.com/pmkol/luci-app-upnp --depth 1
 git clone https://github.com/pmkol/packages_net_qosmate qosmate --depth 1
@@ -38,10 +34,7 @@ rm -rf openwrt_pkgs/bash-completion
 rm -rf openwrt-ddns-go/luci-app-ddns-go/README.md
 rm -rf liburing/.git
 rm -rf samba4/{.git,README.md}
-rm -rf containerd/.git
-rm -rf docker/.git
-rm -rf dockerd/.git
-rm -rf runc/.git
+rm -rf luci-app-filemanager/.git
 rm -rf luci-app-unblockneteasemusic/{.git,.github,LICENSE,README.md}
 rm -rf luci-app-tailscale/{.git,.gitignore,LICENSE,README.md}
 rm -rf miniupnpd/{.git,.github}
@@ -50,19 +43,12 @@ rm -rf qosmate/{.git,LICENSE,README.md}
 rm -rf luci-app-qosmate/{.git,LICENSE,README.md}
 
 # download patch
-curl -s https://raw.githubusercontent.com/pmkol/openwrt-plus/master/openwrt/patch/docker/0001-dockerd-fix-bridge-network.patch > patch-dockerd-fix-bridge-network.patch
-curl -s https://raw.githubusercontent.com/pmkol/openwrt-plus/master/openwrt/patch/docker/0002-docker-add-buildkit-experimental-support.patch > patch-dockerd-add-buildkit-experimental-support.patch
-curl -s https://raw.githubusercontent.com/pmkol/openwrt-plus/master/openwrt/patch/docker/0003-dockerd-disable-ip6tables-for-bridge-network-by-defa.patch > patch-dockerd-disable-ip6tables-for-bridge-network-by-defa.patch
 curl -s https://raw.githubusercontent.com/pmkol/openwrt-plus/master/openwrt/patch/luci/applications/luci-app-frpc/001-luci-app-frpc-hide-token-openwrt-23.05.patch > patch-luci-app-frpc-hide-token.patch
 curl -s https://raw.githubusercontent.com/pmkol/openwrt-plus/master/openwrt/patch/luci/applications/luci-app-frpc/002-luci-app-frpc-add-enable-flag-openwrt-23.05.patch > patch-luci-app-frpc-add-enable-flag.patch
 
 # add pkgs
 mv openwrt_pkgs/*/ ./
 rm -rf openwrt_pkgs
-
-# add luci-app-alist
-mv openwrt-alist/*/ ./
-rm -rf openwrt-alist
 
 # add luci-app-airconnect
 mv openwrt-airconnect/*/ ./
@@ -183,18 +169,6 @@ curl -s https://raw.githubusercontent.com/pmkol/openwrt-plus/openwrt/patch/luci/
 
 # ddns-scripts
 mv immortalwrt/packages/net/ddns-scripts ./
-
-# docker
-mv immortalwrt/packages/utils/docker-compose ./
-mv immortalwrt/packages/utils/tini ./
-patch -p2 -f -s < patch-dockerd-fix-bridge-network.patch
-patch -p2 -f -s < patch-dockerd-add-buildkit-experimental-support.patch
-patch -p2 -f -s < patch-dockerd-disable-ip6tables-for-bridge-network-by-defa.patch
-sed -i 's|../../lang|$(TOPDIR)/feeds/packages/lang|' containerd/Makefile
-sed -i 's|../../lang|$(TOPDIR)/feeds/packages/lang|' docker/Makefile
-sed -i 's|../../lang|$(TOPDIR)/feeds/packages/lang|' dockerd/Makefile
-sed -i 's|../../lang|$(TOPDIR)/feeds/packages/lang|' runc/Makefile
-sed -i 's|../../lang|$(TOPDIR)/feeds/packages/lang|' docker-compose/Makefile
 
 # netdata
 mv openwrt/packages/admin/netdata ./
