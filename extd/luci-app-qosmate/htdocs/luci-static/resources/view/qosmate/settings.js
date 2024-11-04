@@ -46,11 +46,14 @@ return view.extend({
 
         o = s.option(form.DummyValue, '_status', _('Service Status'));
         o.rawhtml = true;
+        o = s.option(form.DummyValue, '_status', _('Service Status'));
+        o.rawhtml = true;
         o.render = function(section_id) {
             var status = uci.get('qosmate', 'global', 'status') === '1' ? 'Running' : 'Not Running';
+            var statusColor = status === 'Running' ? 'green' : 'red';
             return E('div', { 'class': 'cbi-value' }, [
                 E('label', { 'class': 'cbi-value-title' }, _('Service Status')),
-                E('div', { 'class': 'cbi-value-field' }, _(status))
+                E('div', { 'class': 'cbi-value-field', style: 'color: ' + statusColor }, _(status))
             ]);
         };
 
