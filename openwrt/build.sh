@@ -30,9 +30,9 @@ export isCN=`echo $ip_info | grep -Po 'country_code\":"\K[^"]+'`;
 
 # github actions - automatically retrieve `github raw` links
 if [ "$(whoami)" = "runner" ] && [ -n "$GITHUB_REPO" ]; then
-    export mirror=raw.githubusercontent.com/$GITHUB_REPO/master
+    export mirror=raw.githubusercontent.com/$GITHUB_REPO/build
 else
-    export mirror=raw.githubusercontent.com/pmkol/openwrt-plus/master
+    export mirror=raw.githubusercontent.com/pmkol/test/build
 fi
 
 # apply for sbwml/builder
