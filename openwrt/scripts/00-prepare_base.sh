@@ -12,6 +12,8 @@ fi
 
 ######## OpenWrt Patches ########
 
+sed -i '/mirror2.openwrt.org/a\push @mirrors, '\''https://source.cooluc.com'\'';' scripts/download.pl
+
 # tools: add llvm/clang toolchain
 curl -s https://$mirror/openwrt/patch/generic/0001-tools-add-llvm-clang-toolchain.patch | patch -p1
 
