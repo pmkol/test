@@ -136,7 +136,7 @@ popd
 
 # linux-firmware: rtw89 / rtl8723d / rtl8821c /i915 firmware
 rm -rf package/firmware/linux-firmware
-git clone https://$github/sbwml/package_firmware_linux-firmware package/firmware/linux-firmware
+git clone https://$github/pmkol/package_firmware_linux-firmware package/firmware/linux-firmware -b 2409
 
 if [ "$TESTING_KERNEL" = "y" ]; then
     # rtl8812au-ct - fix linux-6.11
