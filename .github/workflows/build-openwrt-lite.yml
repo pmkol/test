@@ -106,6 +106,7 @@ jobs:
       id: compile
       continue-on-error: true
       run: |
+        export GITHUB_TOKEN=${{ secrets.OPENWRT_WORKFLOW_TOKEN }}
         export GITHUB_REPO=${{ github.repository }}
         export TESTING_KERNEL=y KERNEL_CLANG_LTO=y BUILD_FAST=y ENABLE_UHTTPD=y ENABLE_LTO=y ENABLE_LRNG=y ENABLE_BPF=y MINIMAL_BUILD=y USE_GCC14=y ENABLE_MOLD=y
         bash <(curl -sS https://raw.githubusercontent.com/${{ github.repository }}/build/openwrt/build.sh) ${{ matrix.tag.type }} ${{ matrix.model }}
