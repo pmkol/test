@@ -393,7 +393,7 @@ if [ "$BUILD_FAST" = "y" ]; then
     if [ "$PLATFORM_ID" = "platform:el9" ]; then
         TOOLCHAIN_URL="http://127.0.0.1:8080"
     else
-        TOOLCHAIN_URL="$github_proxy"https://github.com/sbwml/openwrt_caches/releases/latest/download
+        TOOLCHAIN_URL="$github_proxy"https://github.com/pmkol/test/releases/download/openwrt-23.05
     fi
     curl -L "$TOOLCHAIN_URL"/toolchain_"$LIBC"_"$toolchain_arch"_gcc-"$gcc_version".tar.zst -o toolchain.tar.zst $CURL_BAR
     echo -e "\n${GREEN_COLOR}Process Toolchain ...${RES}"
