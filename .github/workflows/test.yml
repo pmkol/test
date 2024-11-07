@@ -12,9 +12,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Clone Private B Repository
-        env:
-          GITHUB_TOKEN: ${{ secrets.OPENWRT_WORKFLOW_TOKEN }}
         run: |
+          export GITHUB_TOKEN=${{ secrets.OPENWRT_WORKFLOW_TOKEN }}
           git clone https://$GITHUB_TOKEN@github.com/pmkol/target_linux_rockchip.git
           cd target_linux_rockchip
           ls
