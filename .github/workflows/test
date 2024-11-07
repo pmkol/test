@@ -1,0 +1,20 @@
+name: Pull from Private Repository
+
+on:
+  workflow_dispatch:
+
+jobs:
+  pull-private-repo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout A repository
+        uses: actions/checkout@v4
+
+      - name: Clone Private B Repository
+        env:
+          GITHUB_TOKEN: ${{ secrets.OPENWRT_WORKFLOW_TOKEN }}
+        run: |
+          git clone https://$GITHUB_TOKEN@github.com/pmkol/target_linux_rockchip.git
+          cd target_linux_rockchip
+          ls
