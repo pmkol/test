@@ -152,11 +152,11 @@ else
     git clone https://$github/sbwml/package_kernel_rtl8812au-ac package/kernel/rtl8812au-ac
 fi
 
-# mt76 - 2024-09-29
+# mt76 - 2024-10-11
 rm -rf package/kernel/mt76
 mkdir -p package/kernel/mt76/patches
 curl -s https://$mirror/openwrt/patch/mt76/Makefile > package/kernel/mt76/Makefile
-curl -s https://$mirror/openwrt/patch/mt76/patches/100-fix-build-with-mac80211-6.11-backport.patch > package/kernel/mt76/patches/100-fix-build-with-mac80211-6.11-backport.patch
+#curl -s https://$mirror/openwrt/patch/mt76/patches/100-fix-build-with-mac80211-6.11-backport.patch > package/kernel/mt76/patches/100-fix-build-with-mac80211-6.11-backport.patch
 
 # iwinfo: add mt7922 device id
 mkdir -p package/network/utils/iwinfo/patches
@@ -173,7 +173,7 @@ curl -s https://$mirror/openwrt/patch/openwrt-6.x/500-world-regd-5GHz.patch > pa
 # mac80211 - fix linux 6.6 & add rtw89
 rm -rf package/kernel/mac80211
 git clone https://$github/sbwml/package_kernel_mac80211 package/kernel/mac80211 -b v6.11
-[ "$TESTING_KERNEL" = "y" ] && rm -f package/kernel/mac80211/patches/build/140-trace_backport.patch
+#[ "$TESTING_KERNEL" = "y" ] && rm -f package/kernel/mac80211/patches/build/140-trace_backport.patch
 
 # ath10k-ct
 rm -rf package/kernel/ath10k-ct
