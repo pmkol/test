@@ -44,7 +44,7 @@ grep HASH include/kernel-$kernel_version | awk -F'HASH-' '{print $2}' | awk '{pr
 
 # kernel generic patches
 rm -rf target/linux/generic
-git clone https://$github/pmkol/target_linux_generic -b 6.11 target/linux/generic --depth=1
+git clone https://$github/pmkol/target_linux_generic -b 6.11.6 target/linux/generic --depth=1
 
 # bcm53xx - fix build kernel with clang
 [ "$platform" = "bcm53xx" ] && [ "$KERNEL_CLANG_LTO" = "y" ] && rm -f target/linux/generic/hack-6.6/220-arm-gc_sections.patch target/linux/generic/hack-6.11/220-arm-gc_sections.patch
