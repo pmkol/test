@@ -2,12 +2,6 @@ name: Build sync kernel-6.11 lite
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - build
-    paths:
-      - 'tags/kernel-6.11'
-      - 'tags/v23'
 
 jobs:
   build:
@@ -106,8 +100,9 @@ jobs:
       id: compile
       continue-on-error: true
       run: |
+        export GITHUB_TOKEN=${{ secrets.OPENWRT_WORKFLOW_TOKEN }}
         export GITHUB_REPO=${{ github.repository }}
-        export BUILD_FAST=y TESTING_KERNEL=y KERNEL_CLANG_LTO=y ENABLE_UHTTPD=y ENABLE_LTO=y ENABLE_LRNG=y ENABLE_BPF=y MINIMAL_BUILD=y USE_GCC14=y ENABLE_MOLD=y
+        export TESTING_KERNEL=y KERNEL_CLANG_LTO=y BUILD_FAST=y ENABLE_UHTTPD=y ENABLE_LTO=y ENABLE_LRNG=y ENABLE_BPF=y MINIMAL_BUILD=y USE_GCC14=y ENABLE_MOLD=y
         bash <(curl -sS https://raw.githubusercontent.com/${{ github.repository }}/build/openwrt/build.sh) ${{ matrix.tag.type }} ${{ matrix.model }}
         cd openwrt
         tags=$(git describe --abbrev=0 --tags)
