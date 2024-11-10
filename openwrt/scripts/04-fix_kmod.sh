@@ -50,6 +50,7 @@ popd
 # nat46
 mkdir -p package/kernel/nat46/patches
 curl -s https://$mirror/openwrt/patch/packages-patches/nat46/100-fix-build-with-kernel-6.9.patch > package/kernel/nat46/patches/100-fix-build-with-kernel-6.9.patch
+curl -s https://$mirror/openwrt/patch/packages-patches/nat46/101-fix-build-with-kernel-6.11.patch > package/kernel/nat46/patches/101-fix-build-with-kernel-6.11.patch
 
 # v4l2loopback - 6.11
 mkdir -p feeds/packages/kernel/v4l2loopback/patches
