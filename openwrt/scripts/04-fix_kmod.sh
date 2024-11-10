@@ -28,7 +28,7 @@ curl -s https://$mirror/openwrt/patch/packages-patches/mdio-netlink/001-mdio-net
 
 # ovpn-dco
 mkdir -p feeds/packages/kernel/ovpn-dco/patches
-curl -s https://$mirror/openwrt/patch/packages-patches/ovpn-dco/100-ovpn-dco-adapt-pre-post_doit-CBs-to-new-signature.patch > feeds/packages/kernel/ovpn-dco/patches/100-ovpn-dco-adapt-pre-post_doit-CBs-to-new-signature.patch
+#curl -s https://$mirror/openwrt/patch/packages-patches/ovpn-dco/100-ovpn-dco-adapt-pre-post_doit-CBs-to-new-signature.patch > feeds/packages/kernel/ovpn-dco/patches/100-ovpn-dco-adapt-pre-post_doit-CBs-to-new-signature.patch
 #curl -s https://$mirror/openwrt/patch/packages-patches/ovpn-dco/900-fix-linux-6.6.patch > feeds/packages/kernel/ovpn-dco/patches/900-fix-linux-6.6.patch
 curl -s https://$mirror/openwrt/patch/packages-patches/ovpn-dco/901-fix-linux-6.11.patch > feeds/packages/kernel/ovpn-dco/patches/901-fix-linux-6.11.patch
 curl -s https://$mirror/openwrt/patch/packages-patches/ovpn-dco/902-fix-linux-6.11.patch > feeds/packages/kernel/ovpn-dco/patches/902-fix-linux-6.11.patch
