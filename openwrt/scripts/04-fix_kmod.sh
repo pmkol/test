@@ -31,7 +31,7 @@ mkdir -p feeds/packages/kernel/ovpn-dco/patches
 #curl -s https://$mirror/openwrt/patch/packages-patches/ovpn-dco/100-ovpn-dco-adapt-pre-post_doit-CBs-to-new-signature.patch > feeds/packages/kernel/ovpn-dco/patches/100-ovpn-dco-adapt-pre-post_doit-CBs-to-new-signature.patch
 #curl -s https://$mirror/openwrt/patch/packages-patches/ovpn-dco/900-fix-linux-6.6.patch > feeds/packages/kernel/ovpn-dco/patches/900-fix-linux-6.6.patch
 curl -s https://$mirror/openwrt/patch/packages-patches/ovpn-dco/901-fix-linux-6.11.patch > feeds/packages/kernel/ovpn-dco/patches/901-fix-linux-6.11.patch
-curl -s https://$mirror/openwrt/patch/packages-patches/ovpn-dco/902-fix-linux-6.11.patch > feeds/packages/kernel/ovpn-dco/patches/902-fix-linux-6.11.patch
+#curl -s https://$mirror/openwrt/patch/packages-patches/ovpn-dco/902-fix-linux-6.11.patch > feeds/packages/kernel/ovpn-dco/patches/902-fix-linux-6.11.patch
 
 # siit
 rm -rf feeds/packages/net/siit
@@ -50,7 +50,7 @@ popd
 # nat46
 mkdir -p package/kernel/nat46/patches
 curl -s https://$mirror/openwrt/patch/packages-patches/nat46/100-fix-build-with-kernel-6.9.patch > package/kernel/nat46/patches/100-fix-build-with-kernel-6.9.patch
-curl -s https://$mirror/openwrt/patch/packages-patches/nat46/101-fix-build-with-kernel-6.11.patch > package/kernel/nat46/patches/101-fix-build-with-kernel-6.11.patch
+#curl -s https://$mirror/openwrt/patch/packages-patches/nat46/101-fix-build-with-kernel-6.11.patch > package/kernel/nat46/patches/101-fix-build-with-kernel-6.11.patch
 
 # v4l2loopback - 6.11
 mkdir -p feeds/packages/kernel/v4l2loopback/patches
