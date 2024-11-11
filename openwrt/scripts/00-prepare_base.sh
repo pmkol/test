@@ -143,25 +143,27 @@ if [ ! "$platform" = "x86_64" ]; then
     curl -s https://$mirror/openwrt/patch/mbedtls-23.05/mbedtls.patch | patch -p1
 fi
 
-# NTFS3
-mkdir -p package/system/fstools/patches
-curl -s https://$mirror/openwrt/patch/fstools/ntfs3.patch > package/system/fstools/patches/ntfs3.patch
+# util-linux - ntfs3
 curl -s https://$mirror/openwrt/patch/util-linux/util-linux_ntfs3.patch > package/utils/util-linux/patches/util-linux_ntfs3.patch
 
 # fstools - enable any device with non-MTD rootfs_data volume
+mkdir -p package/system/fstools/patches
 sed -i 's|$(PROJECT_GIT)/project|https://github.com/openwrt|g' package/system/fstools/Makefile
 curl -s https://$mirror/openwrt/patch/fstools/block-mount-add-fstools-depends.patch | patch -p1
+curl -s https://$mirror/openwrt/patch/fstools/200-use-ntfs3-instead-of-ntfs.patch > package/system/fstools/patches/200-use-ntfs3-instead-of-ntfs.patch
+curl -s https://$mirror/openwrt/patch/fstools/201-fstools-set-ntfs3-utf8.patch > package/system/fstools/patches/201-fstools-set-ntfs3-utf8.patch
+curl -s https://$mirror/openwrt/patch/fstools/202-fstools-support-extroot-for-non-MTD-rootfs_data.patch > package/system/fstools/patches/202-fstools-support-extroot-for-non-MTD-rootfs_data.patch
 if [ "$ENABLE_GLIBC" = "y" ]; then
     curl -s https://$mirror/openwrt/patch/fstools/fstools-set-ntfs3-utf8-new.patch > package/system/fstools/patches/ntfs3-utf8.patch
     curl -s https://$mirror/openwrt/patch/fstools/glibc/0001-libblkid-tiny-add-support-for-XFS-superblock.patch > package/system/fstools/patches/0001-libblkid-tiny-add-support-for-XFS-superblock.patch
     curl -s https://$mirror/openwrt/patch/fstools/glibc/0003-block-add-xfsck-support.patch > package/system/fstools/patches/0003-block-add-xfsck-support.patch
 else
-    curl -s https://$mirror/openwrt/patch/fstools/fstools-set-ntfs3-utf8-new.patch > package/system/fstools/patches/ntfs3-utf8.patch
+    #curl -s https://$mirror/openwrt/patch/fstools/fstools-set-ntfs3-utf8-new.patch > package/system/fstools/patches/ntfs3-utf8.patch
 fi
 if [ "$ENABLE_GLIBC" = "y" ]; then
     curl -s https://$mirror/openwrt/patch/fstools/22-fstools-support-extroot-for-non-MTD-rootfs_data-new-version.patch > package/system/fstools/patches/22-fstools-support-extroot-for-non-MTD-rootfs_data.patch
 else
-    curl -s https://$mirror/openwrt/patch/fstools/22-fstools-support-extroot-for-non-MTD-rootfs_data.patch > package/system/fstools/patches/22-fstools-support-extroot-for-non-MTD-rootfs_data.patch
+    #curl -s https://$mirror/openwrt/patch/fstools/22-fstools-support-extroot-for-non-MTD-rootfs_data.patch > package/system/fstools/patches/22-fstools-support-extroot-for-non-MTD-rootfs_data.patch
 fi
 
 # Shortcut Forwarding Engine
