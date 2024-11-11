@@ -144,7 +144,8 @@ if [ ! "$platform" = "x86_64" ]; then
 fi
 
 # util-linux - ntfs3
-curl -s https://$mirror/openwrt/patch/util-linux/util-linux_ntfs3.patch > package/utils/util-linux/patches/util-linux_ntfs3.patch
+curl -s https://$mirror/openwrt/patch/util-linux/201-util-linux_ntfs3.patch > package/utils/util-linux/patches/201-util-linux_ntfs3.patch
+#curl -s https://$mirror/openwrt/patch/util-linux/util-linux_ntfs3.patch > package/utils/util-linux/patches/util-linux_ntfs3.patch
 
 # fstools - enable any device with non-MTD rootfs_data volume
 mkdir -p package/system/fstools/patches
