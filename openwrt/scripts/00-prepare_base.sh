@@ -190,15 +190,18 @@ if [ "$version" = "snapshots-23.05" ] || [ "$version" = "rc2" ]; then
     # add custom nft command support
     curl -s https://$mirror/openwrt/patch/firewall4/100-openwrt-firewall4-add-custom-nft-command-support.patch | patch -p1
     # libnftnl
-    rm -rf package/libs/libnftnl
-    cp -a ../master/openwrt/package/libs/libnftnl package/libs/libnftnl
+    #rm -rf package/libs/libnftnl
+    #cp -a ../master/openwrt/package/libs/libnftnl package/libs/libnftnl
     mkdir -p package/libs/libnftnl/patches
     curl -s https://$mirror/openwrt/patch/firewall4/libnftnl/001-libnftnl-add-fullcone-expression-support.patch > package/libs/libnftnl/patches/001-libnftnl-add-fullcone-expression-support.patch
     curl -s https://$mirror/openwrt/patch/firewall4/libnftnl/002-libnftnl-add-brcm-fullcone-support.patch > package/libs/libnftnl/patches/002-libnftnl-add-brcm-fullcone-support.patch
     sed -i '/PKG_INSTALL:=1/iPKG_FIXUP:=autoreconf' package/libs/libnftnl/Makefile
     # nftables
-    rm -rf package/network/utils/nftables
-    cp -a ../master/openwrt/package/network/utils/nftables package/network/utils/nftables
+    #rm -rf package/network/utils/nftables
+    #cp -a ../master/openwrt/package/network/utils/nftables package/network/utils/nftables
+    NFTABLES_VERSION=1.0.9
+    NFTABLES_HASH=a3c304cd9ba061239ee0474f9afb938a9bb99d89b960246f66f0c3a0a85e14cd
+    sed -ri "s/(PKG_VERSION:=)[^\"]*/\1$NFTABLES_VERSION/;s/(PKG_HASH:=)[^\"]*/\1$NFTABLES_HASH/" package/network/utils/nftables/Makefile
     mkdir -p package/network/utils/nftables/patches
     curl -s https://$mirror/openwrt/patch/firewall4/nftables/002-nftables-add-fullcone-expression-support.patch > package/network/utils/nftables/patches/002-nftables-add-fullcone-expression-support.patch
     curl -s https://$mirror/openwrt/patch/firewall4/nftables/003-nftables-add-brcm-fullconenat-support.patch > package/network/utils/nftables/patches/003-nftables-add-brcm-fullconenat-support.patch
