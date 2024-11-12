@@ -119,7 +119,7 @@ sed -i 's/解除网易云音乐播放限制/网易云音乐解锁/g' package/new
 git clone https://$github/sbwml/luci-app-xunlei package/new/xunlei
 
 # Theme
-git clone --depth 1 https://$github/sbwml/luci-theme-argon.git package/new/luci-theme-argon
+git clone --depth 1 https://$github/pmkol/luci-theme-argon package/new/luci-theme-argon
 
 # Mosdns
 git clone https://$github/sbwml/luci-app-mosdns -b v5 package/new/mosdns
