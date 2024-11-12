@@ -1,0 +1,32 @@
+name: Test Pull from Private Repository
+
+on:
+  workflow_dispatch:
+
+jobs:
+  pull-private-repo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          ref: test2
+
+      - name: Clone Private Repository
+        run: |
+          export GITHUB_TOKEN=${{ secrets.OPENWRT_WORKFLOW_TOKEN }}
+          git clone https://$GITHUB_TOKEN@github.com/pmkol/package_new_nft-fullcone.git
+
+      - name: Git push
+        continue-on-error: true
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+          git add .
+          if ! git diff-index --quiet HEAD --; then
+            git commit -sm "test"
+            git push "https://${{ github.actor }}:${{ secrets.OPENWRT_WORKFLOW_TOKEN }}@github.com/${{ github.repository }}" HEAD:test2
+          else
+            echo "No changes to commit, skipping push."
+          fi
