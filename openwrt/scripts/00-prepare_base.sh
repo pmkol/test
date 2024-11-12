@@ -202,10 +202,6 @@ if [ "$version" = "snapshots-23.05" ] || [ "$version" = "rc2" ]; then
     mkdir -p package/network/utils/nftables/patches
     curl -s https://$mirror/openwrt/patch/firewall4/nftables/002-nftables-add-fullcone-expression-support.patch > package/network/utils/nftables/patches/002-nftables-add-fullcone-expression-support.patch
     curl -s https://$mirror/openwrt/patch/firewall4/nftables/003-nftables-add-brcm-fullconenat-support.patch > package/network/utils/nftables/patches/003-nftables-add-brcm-fullconenat-support.patch
-    # hide nftables warning message
-    pushd feeds/luci
-        curl -s https://$mirror/openwrt/patch/luci/luci-nftables.patch | patch -p1
-    popd
 fi
 
 # FullCone module
