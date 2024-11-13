@@ -152,11 +152,11 @@ sed -i 's|$(PROJECT_GIT)/project|https://github.com/openwrt|g' package/system/fs
 curl -s https://$mirror/openwrt/patch/fstools/block-mount-add-fstools-depends.patch | patch -p1
 mkdir -p package/system/fstools/patches
 #curl -s https://$mirror/openwrt/patch/fstools/ntfs3.patch > package/system/fstools/patches/ntfs3.patch
-curl -s https://$mirror/openwrt/patch/fstools/ntfs3.patch > package/system/fstools/patches/200-use-ntfs3-instead-of-ntfs.patch
+curl -s https://$mirror/openwrt/patch/fstools/200-use-ntfs3-instead-of-ntfs.patch > package/system/fstools/patches/200-use-ntfs3-instead-of-ntfs.patch
 #curl -s https://$mirror/openwrt/patch/fstools/fstools-set-ntfs3-utf8-new.patch > package/system/fstools/patches/ntfs3-utf8.patch
-curl -s https://$mirror/openwrt/patch/fstools/fstools-set-ntfs3-utf8-new.patch > package/system/fstools/patches/201-fstools-set-ntfs3-utf8.patch
+curl -s https://$mirror/openwrt/patch/fstools/201-fstools-set-ntfs3-utf8.patch > package/system/fstools/patches/201-fstools-set-ntfs3-utf8.patch
 #curl -s https://$mirror/openwrt/patch/fstools/22-fstools-support-extroot-for-non-MTD-rootfs_data.patch > package/system/fstools/patches/22-fstools-support-extroot-for-non-MTD-rootfs_data.patch
-curl -s https://$mirror/openwrt/patch/fstools/22-fstools-support-extroot-for-non-MTD-rootfs_data.patch > package/system/fstools/patches/022-fstools-support-extroot-for-non-MTD-rootfs_data.patch
+curl -s https://$mirror/openwrt/patch/fstools/022-fstools-support-extroot-for-non-MTD-rootfs_data.patch > package/system/fstools/patches/022-fstools-support-extroot-for-non-MTD-rootfs_data.patch
 if [ "$ENABLE_GLIBC" = "y" ]; then
     curl -s https://$mirror/openwrt/patch/fstools/fstools-set-ntfs3-utf8-new.patch > package/system/fstools/patches/ntfs3-utf8.patch
     curl -s https://$mirror/openwrt/patch/fstools/glibc/0001-libblkid-tiny-add-support-for-XFS-superblock.patch > package/system/fstools/patches/0001-libblkid-tiny-add-support-for-XFS-superblock.patch
