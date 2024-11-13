@@ -341,7 +341,7 @@ sed -i 's/procd_set_param stderr 1/procd_set_param stderr 0/g' feeds/packages/ut
 
 # UPnP
 rm -rf feeds/{packages/net/miniupnpd,luci/applications/luci-app-upnp}
-git clone https://$github/pmkol/packages_net_miniupnpd feeds/packages/net/miniupnpd -b v2.3.7
+git clone https://$github/pmkol/packages_net_miniupnpd feeds/packages/net/miniupnpd -b main
 git clone https://$github/pmkol/luci-app-upnp feeds/luci/applications/luci-app-upnp -b main
 
 # nginx-util - fix gcc13
