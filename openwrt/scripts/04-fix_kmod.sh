@@ -7,8 +7,6 @@ CRYPTODEV_VERSION=1.13
 CRYPTODEV_HASH=33b7915c46eb39a37110e88c681423c0dd0df25d784b6e1475ac3196367f0db5
 sed -ri "s/(PKG_VERSION:=)[^\"]*/\1$CRYPTODEV_VERSION/;s/(PKG_HASH:=)[^\"]*/\1$CRYPTODEV_HASH/" package/kernel/cryptodev-linux/Makefile
 mkdir -p package/kernel/cryptodev-linux/patches
-#curl -s https://$mirror/openwrt/patch/packages-patches/cryptodev-linux/001-Fix-build-for-Linux-6.3-rc1.patch > package/kernel/cryptodev-linux/patches/001-Fix-build-for-Linux-6.3-rc1.patch
-#curl -s https://$mirror/openwrt/patch/packages-patches/cryptodev-linux/002-fix-build-for-linux-6.7-rc1.patch > package/kernel/cryptodev-linux/patches/002-fix-build-for-linux-6.7-rc1.patch
 curl -s https://$mirror/openwrt/patch/packages-patches/cryptodev-linux/0001-cryptodev_verbosity-fix-build-for-linux-6.4.patch > package/kernel/cryptodev-linux/patches/0001-cryptodev_verbosity-fix-build-for-linux-6.4.patch
 curl -s https://$mirror/openwrt/patch/packages-patches/cryptodev-linux/0002-zero-copy-fix-build-for-linux-6.4.patch > package/kernel/cryptodev-linux/patches/0002-zero-copy-fix-build-for-linux-6.4.patch
 curl -s https://$mirror/openwrt/patch/packages-patches/cryptodev-linux/0003-move-recent-linux-version-ifdefs-from-v6.4-to-v6.5.patch > package/kernel/cryptodev-linux/patches/0003-move-recent-linux-version-ifdefs-from-v6.4-to-v6.5.patch
@@ -40,7 +38,6 @@ mkdir -p feeds/packages/kernel/ovpn-dco/patches
 curl -s https://$mirror/openwrt/patch/packages-patches/ovpn-dco/100-ovpn-dco-adapt-pre-post_doit-CBs-to-new-signature.patch > feeds/packages/kernel/ovpn-dco/patches/100-ovpn-dco-adapt-pre-post_doit-CBs-to-new-signature.patch
 curl -s https://$mirror/openwrt/patch/packages-patches/ovpn-dco/900-fix-linux-6.6.patch > feeds/packages/kernel/ovpn-dco/patches/900-fix-linux-6.6.patch
 curl -s https://$mirror/openwrt/patch/packages-patches/ovpn-dco/901-fix-linux-6.11.patch > feeds/packages/kernel/ovpn-dco/patches/901-fix-linux-6.11.patch
-#curl -s https://$mirror/openwrt/patch/packages-patches/ovpn-dco/902-fix-linux-6.11.patch > feeds/packages/kernel/ovpn-dco/patches/902-fix-linux-6.11.patch
 
 # siit
 rm -rf feeds/packages/net/siit
@@ -59,7 +56,6 @@ popd
 # nat46
 mkdir -p package/kernel/nat46/patches
 curl -s https://$mirror/openwrt/patch/packages-patches/nat46/100-fix-build-with-kernel-6.9.patch > package/kernel/nat46/patches/100-fix-build-with-kernel-6.9.patch
-#curl -s https://$mirror/openwrt/patch/packages-patches/nat46/101-fix-build-with-kernel-6.11.patch > package/kernel/nat46/patches/101-fix-build-with-kernel-6.11.patch
 
 # v4l2loopback - 6.11
 mkdir -p feeds/packages/kernel/v4l2loopback/patches
