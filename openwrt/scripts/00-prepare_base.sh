@@ -228,7 +228,7 @@ pushd feeds/luci
     curl -s https://$mirror/openwrt/patch/firewall4/0004-luci-add-firewall-add-custom-nft-rule-support.patch | patch -p1
     curl -s https://$mirror/openwrt/patch/firewall4/0005-luci-app-firewall-add-natflow-offload-support.patch | patch -p1
 popd
-sed -i '/Requires hardware NAT support./{N;N;s/1/2/}' feeds/luci/luci-app-firewall/htdocs/luci-static/resources/view/firewall/zones.js
+sed -i '/Requires hardware NAT support./{N;N;s/1/2/}' feeds/luci/applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall/zones.js
 
 # openssl - quictls
 if [ "$version" = "rc2" ]; then
