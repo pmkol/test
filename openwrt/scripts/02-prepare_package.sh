@@ -21,9 +21,9 @@ sed -i 's/stderr 1/stderr 0/g' feeds/packages/net/nlbwmon/files/nlbwmon.init
 rm -rf feeds/packages/libs/boost
 cp -a ../master/packages/libs/boost feeds/packages/libs/boost
 
-# lrzsz - 0.12.20
-rm -rf feeds/packages/utils/lrzsz
-git clone https://$github/sbwml/packages_utils_lrzsz package/new/lrzsz
+# lrzsz - 0.12.21
+curl -s https://$mirror/openwrt/patch/lrzsz/201-fix-build-with-gcc14.patch > feeds/packages/utils/lrzsz/patches/201-fix-build-with-gcc14.patch
+mv feeds/packages/utils/lrzsz package/new/lrzsz
 
 # irqbalance - openwrt master
 rm -rf feeds/packages/utils/irqbalance
