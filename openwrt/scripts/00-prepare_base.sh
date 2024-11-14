@@ -145,10 +145,12 @@ if [ ! "$platform" = "x86_64" ]; then
 fi
 
 # util-linux - ntfs3
-#UTIL_VERSION=2.39.4
-#UTIL_HASH=6c4f8723dafd41c39d93ecbf16509fc88c33cd5bd3277880ae5a1d97a014fd0e
-#sed -ri "s/(PKG_VERSION:=)[^\"]*/\1$UTIL_VERSION/;s/(PKG_HASH:=)[^\"]*/\1$UTIL_HASH/" package/utils/util-linux/Makefile
-curl -s https://$mirror/openwrt/patch/util-linux/201-util-linux_ntfs3.patch > package/utils/util-linux/patches/201-util-linux_ntfs3.patch
+UTIL_VERSION=2.39.4
+UTIL_HASH=6c4f8723dafd41c39d93ecbf16509fc88c33cd5bd3277880ae5a1d97a014fd0e
+sed -ri "s/(PKG_VERSION:=)[^\"]*/\1$UTIL_VERSION/;s/(PKG_HASH:=)[^\"]*/\1$UTIL_HASH/" package/utils/util-linux/Makefile
+rm -rf package/utils/util-linux/patches/*
+curl -s https://$mirror/openwrt/patch/util-linux/001-meson-properly-handle-gettext-non-existence.patch > package/utils/util-linux/patches/001-meson-properly-handle-gettext-non-existence.patch
+curl -s https://$mirror/openwrt/patch/util-linux/002-util-linux_ntfs3.patch > package/utils/util-linux/patches/002-util-linux_ntfs3.patch
 
 # fstools - enable any device with non-MTD rootfs_data volume
 sed -i 's|$(PROJECT_GIT)/project|https://github.com/openwrt|g' package/system/fstools/Makefile
