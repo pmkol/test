@@ -1,4 +1,4 @@
-name: Build sync kernel-6.11 lite
+name: Build openwrt-lite with kernel-6.11
 
 on:
   workflow_dispatch:
