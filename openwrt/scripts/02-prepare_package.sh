@@ -23,7 +23,8 @@ cp -a ../master/packages/libs/boost feeds/packages/libs/boost
 
 # lrzsz - 0.12.21
 curl -s https://$mirror/openwrt/patch/lrzsz/201-fix-build-with-gcc14.patch > feeds/packages/utils/lrzsz/patches/201-fix-build-with-gcc14.patch
-mv feeds/packages/utils/lrzsz package/new/lrzsz
+curl -s https://$mirror/openwrt/patch/lrzsz/202-fix-build-ansi-prototypes.patch > feeds/packages/utils/lrzsz/patches/202-fix-build-ansi-prototypes.patch
+#mv feeds/packages/utils/lrzsz package/new/lrzsz
 
 # irqbalance - openwrt master
 rm -rf feeds/packages/utils/irqbalance
