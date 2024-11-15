@@ -1,4 +1,4 @@
-name: Build OpenWrt 23.05 lite
+name: Build OpenWrt 23.05 Lite
 
 on:
   workflow_dispatch:
