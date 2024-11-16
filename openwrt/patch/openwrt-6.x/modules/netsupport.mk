@@ -1358,7 +1358,7 @@ $(eval $(call KernelPackage,mpls))
 define KernelPackage/9pnet
   SUBMENU:=$(NETWORK_SUPPORT_MENU)
   TITLE:=Plan 9 Resource Sharing Support (9P2000)
-  DEPENDS:=+LINUX_6_11:kmod-fs-netfs
+  DEPENDS:=+LINUX_6_12:kmod-fs-netfs
   KCONFIG:= \
 	CONFIG_NET_9P \
 	CONFIG_NET_9P_DEBUG=n \
@@ -1494,6 +1494,21 @@ define KernelPackage/inet-diag/description
 endef
 
 $(eval $(call KernelPackage,inet-diag))
+
+
+define KernelPackage/inet-mptcp-diag
+  SUBMENU:=$(NETWORK_SUPPORT_MENU)
+  TITLE:=INET diag support for MultiPath TCP
+  DEPENDS:=@KERNEL_MPTCP +kmod-inet-diag
+  KCONFIG:=CONFIG_INET_MPTCP_DIAG
+  FILES:=$(LINUX_DIR)/net/mptcp/mptcp_diag.ko
+  AUTOLOAD:=$(call AutoProbe,mptcp_diag)
+endef
+define KernelPackage/inet-mptcp-diag/description
+Support for INET (MultiPath TCP) socket monitoring interface used by
+native Linux tools such as ss.
+endef
+$(eval $(call KernelPackage,inet-mptcp-diag))
 
 
 define KernelPackage/xdp-sockets-diag
