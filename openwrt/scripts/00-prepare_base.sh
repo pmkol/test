@@ -50,6 +50,9 @@ curl -s https://$mirror/openwrt/patch/generic/0010-include-kernel-add-miss-confi
 # meson: add platform variable to cross-compilation file
 curl -s https://$mirror/openwrt/patch/generic/0011-meson-add-platform-variable-to-cross-compilation-fil.patch | patch -p1
 
+# kernel: enable Multi-Path TCP
+curl -s https://$mirror/openwrt/patch/generic/0012-kernel-enable-Multi-Path-TCP-for-SMALL_FLASH-targets.patch | patch -p1
+
 # mold
 if [ "$ENABLE_MOLD" = "y" ]; then
     curl -s https://$mirror/openwrt/patch/generic/mold/0001-build-add-support-to-use-the-mold-linker-for-package.patch | patch -p1
@@ -59,7 +62,6 @@ if [ "$ENABLE_MOLD" = "y" ]; then
     curl -s https://$mirror/openwrt/patch/generic/mold/0005-build-replace-SSTRIP_ARGS-with-SSTRIP_DISCARD_TRAILI.patch | patch -p1
     curl -s https://$mirror/openwrt/patch/generic/mold/0006-config-add-a-knob-to-use-the-mold-linker-for-package.patch | patch -p1
     curl -s https://$mirror/openwrt/patch/generic/mold/0007-rules-prepare-to-use-different-linkers.patch | patch -p1
-    #curl -s https://$mirror/openwrt/patch/generic/mold/0008-tools-mold-update-to-2.34.0.patch | patch -p1
     curl -s https://$mirror/openwrt/patch/generic/mold/0008-tools-mold-update-to-2.34.1.patch | patch -p1
     # no-mold
     sed -i '/PKG_BUILD_PARALLEL/aPKG_BUILD_FLAGS:=no-mold' feeds/packages/utils/attr/Makefile
@@ -156,11 +158,8 @@ curl -s https://$mirror/openwrt/patch/util-linux/002-util-linux_ntfs3.patch > pa
 sed -i 's|$(PROJECT_GIT)/project|https://github.com/openwrt|g' package/system/fstools/Makefile
 curl -s https://$mirror/openwrt/patch/fstools/block-mount-add-fstools-depends.patch | patch -p1
 mkdir -p package/system/fstools/patches
-#curl -s https://$mirror/openwrt/patch/fstools/ntfs3.patch > package/system/fstools/patches/ntfs3.patch
 curl -s https://$mirror/openwrt/patch/fstools/200-use-ntfs3-instead-of-ntfs.patch > package/system/fstools/patches/200-use-ntfs3-instead-of-ntfs.patch
-#curl -s https://$mirror/openwrt/patch/fstools/fstools-set-ntfs3-utf8-new.patch > package/system/fstools/patches/ntfs3-utf8.patch
 curl -s https://$mirror/openwrt/patch/fstools/201-fstools-set-ntfs3-utf8.patch > package/system/fstools/patches/201-fstools-set-ntfs3-utf8.patch
-#curl -s https://$mirror/openwrt/patch/fstools/22-fstools-support-extroot-for-non-MTD-rootfs_data.patch > package/system/fstools/patches/22-fstools-support-extroot-for-non-MTD-rootfs_data.patch
 curl -s https://$mirror/openwrt/patch/fstools/022-fstools-support-extroot-for-non-MTD-rootfs_data.patch > package/system/fstools/patches/022-fstools-support-extroot-for-non-MTD-rootfs_data.patch
 if [ "$ENABLE_GLIBC" = "y" ]; then
     curl -s https://$mirror/openwrt/patch/fstools/fstools-set-ntfs3-utf8-new.patch > package/system/fstools/patches/ntfs3-utf8.patch
