@@ -4,10 +4,10 @@
 rm -rf package/boot/uboot-rockchip package/boot/arm-trusted-firmware-rockchip
 if [ "$platform" = "rk3568" ]; then
     git clone https://$github/pmkol/package_boot_uboot-rockchip package/boot/uboot-rockchip -b v2024.04
-    git clone https://$github/sbwml/arm-trusted-firmware-rockchip package/boot/arm-trusted-firmware-rockchip
+    git clone https://$github/pmkol/arm-trusted-firmware-rockchip package/boot/arm-trusted-firmware-rockchip -b 240222
 else
     git clone https://$github/pmkol/package_boot_uboot-rockchip package/boot/uboot-rockchip -b v2023.04
-    git clone https://$github/sbwml/arm-trusted-firmware-rockchip package/boot/arm-trusted-firmware-rockchip -b 0419
+    git clone https://$github/pmkol/arm-trusted-firmware-rockchip package/boot/arm-trusted-firmware-rockchip -b 230419
 fi
 
 ######## OpenWrt Patches ########
