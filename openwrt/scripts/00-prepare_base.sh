@@ -176,8 +176,11 @@ git clone https://$gitea/sbwml/shortcut-fe package/new/shortcut-fe
 # Patch FireWall 4
 if [ "$version" = "snapshots-23.05" ] || [ "$version" = "rc2" ]; then
     # firewall4 - master
-    rm -rf package/network/config/firewall4
-    cp -a ../master/openwrt/package/network/config/firewall4 package/network/config/firewall4
+    #rm -rf package/network/config/firewall4
+    #cp -a ../master/openwrt/package/network/config/firewall4 package/network/config/firewall4
+    FIREWALL4_VERSION=4c01d1ebf99e8ecfa69758a9b4f450ecef7b93cd
+    FIREWALL4_HASH=bbc5622bc03e3b43116fcc86e3fa2d2372bfc07b3a00d2b3a6efac4f7454a403
+    sed -ri "s/(PKG_SOURCE_VERSION:=)[^\"]*/\1$FIREWALL4_VERSION/;s/(PKG_MIRROR_HASH:=)[^\"]*/\1$FIREWALL4_HASH/" package/network/config/firewall4/Makefile
     sed -i 's|$(PROJECT_GIT)/project|https://github.com/openwrt|g' package/network/config/firewall4/Makefile
     mkdir -p package/network/config/firewall4/patches
     # fix ct status dnat
