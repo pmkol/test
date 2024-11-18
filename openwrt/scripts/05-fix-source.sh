@@ -34,7 +34,8 @@ if [ "$USE_GCC14" = y ] || [ "$USE_GCC15" = y ]; then
     curl -s https://$mirror/openwrt/patch/openwrt-6.x/gcc-14/mbedtls/900-tests-fix-calloc-argument-list-gcc-14-fix.patch > package/libs/mbedtls/patches/900-tests-fix-calloc-argument-list-gcc-14-fix.patch
     # linux-atm
     rm -rf package/network/utils/linux-atm
-    git clone https://$github/sbwml/package_network_utils_linux-atm package/network/utils/linux-atm
+    #git clone https://$github/sbwml/package_network_utils_linux-atm package/network/utils/linux-atm
+    cp -a ../master/openwrt/package/network/utils/linux-atm package/network/utils/linux-atm
     # lsof
     rm -rf feeds/packages/utils/lsof
     cp -a ../master/packages/utils/lsof feeds/packages/utils/lsof
