@@ -39,7 +39,7 @@ index 92033af..7ff5bc0 100644
  config GCC_VERSION
  	string
  	default "11.3.0"	if GCC_VERSION_11
- 	default "13.2.0"	if GCC_VERSION_13
+ 	default "13.3.0"	if GCC_VERSION_13
 +	default "14.2.0"	if GCC_VERSION_14
  	default "12.3.0"
  
@@ -49,7 +49,7 @@ index cdbf9fa..a1a5108 100644
 --- a/toolchain/gcc/common.mk
 +++ b/toolchain/gcc/common.mk
 @@ -42,6 +42,10 @@ ifeq ($(PKG_VERSION),13.2.0)
-   PKG_HASH:=e275e76442a6067341a27f04c5c6b83d8613144004c0413528863dc6b5c743da
+   PKG_HASH:=0845e9621c9543a13f484e94584a49ffc0129970e9914624235fc1d061a0c083
  endif
  
 +ifeq ($(PKG_VERSION),14.2.0)
