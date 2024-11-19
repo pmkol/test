@@ -275,6 +275,10 @@ if [ "$USE_GCC13" = "y" ] || [ "$USE_GCC14" = "y" ]; then
     rm -rf toolchain/gcc/patches-13.x
     cp -a ../master/openwrt/toolchain/gcc/patches-13.x toolchain/gcc/patches-13.x
     cp -a ../master/openwrt/toolchain/gcc/patches-14.x toolchain/gcc/patches-14.x
+    rm -f toolchain/gcc/{Config.in,Config.version,common.mk}
+    cp -a ../master/openwrt/toolchain/gcc/Config.in toolchain/gcc/Config.in
+    cp -a ../master/openwrt/toolchain/gcc/Config.version toolchain/gcc/Config.version
+    cp -a ../master/openwrt/toolchain/gcc/common.mk toolchain/gcc/common.mk
 fi
 
 rm -f 0*-*.sh
@@ -361,17 +365,17 @@ fi
 if [ "$USE_GCC13" = "y" ] || [ "$USE_GCC14" = "y" ] || [ "$USE_GCC15" = "y" ]; then
     [ "$USE_GCC13" = "y" ] && curl -s https://$mirror/openwrt/generic/config-gcc13 >> .config
     [ "$USE_GCC14" = "y" ] && curl -s https://$mirror/openwrt/generic/config-gcc14 >> .config
-    [ "$USE_GCC15" = "y" ] && curl -s https://$mirror/openwrt/generic/config-gcc15 >> .config
-    curl -s https://$mirror/openwrt/patch/generic/200-toolchain-gcc-update-to-13.3.patch | patch -p1
-    curl -s https://$mirror/openwrt/patch/generic/201-toolchain-gcc-add-support-for-GCC-14.patch | patch -p1
-    curl -s https://$mirror/openwrt/patch/generic/202-toolchain-gcc-add-support-for-GCC-15.patch | patch -p1
+    #[ "$USE_GCC15" = "y" ] && curl -s https://$mirror/openwrt/generic/config-gcc15 >> .config
+    #curl -s https://$mirror/openwrt/patch/generic/200-toolchain-gcc-update-to-13.3.patch | patch -p1
+    #curl -s https://$mirror/openwrt/patch/generic/201-toolchain-gcc-add-support-for-GCC-14.patch | patch -p1
+    #curl -s https://$mirror/openwrt/patch/generic/202-toolchain-gcc-add-support-for-GCC-15.patch | patch -p1
     # gcc14/15 init
     #cp -a toolchain/gcc/patches-13.x toolchain/gcc/patches-14.x
     #curl -s https://$mirror/openwrt/patch/generic/gcc-14/910-mbsd_multi.patch > toolchain/gcc/patches-14.x/910-mbsd_multi.patch
-    cp -a toolchain/gcc/patches-14.x toolchain/gcc/patches-15.x
-    curl -s https://$mirror/openwrt/patch/generic/gcc-15/970-macos_arm64-building-fix.patch > toolchain/gcc/patches-15.x/970-macos_arm64-building-fix.patch
+    #cp -a toolchain/gcc/patches-14.x toolchain/gcc/patches-15.x
+    #curl -s https://$mirror/openwrt/patch/generic/gcc-15/970-macos_arm64-building-fix.patch > toolchain/gcc/patches-15.x/970-macos_arm64-building-fix.patch
 elif [ ! "$ENABLE_GLIBC" = "y" ]; then
-    curl -s https://$mirror/openwrt/generic/config-gcc11 >> .config
+    curl -s https://$mirror/openwrt/generic/config-gcc13 >> .config
 fi
 [ "$(whoami)" = "runner" ] && endgroup
 
