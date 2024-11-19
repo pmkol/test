@@ -131,7 +131,8 @@ export \
     TESTING_KERNEL=$TESTING_KERNEL \
 
 # kernel version
-[ "$TESTING_KERNEL" = "y" ] && export kernel_version=6.11 || export kernel_version=6.6
+#[ "$TESTING_KERNEL" = "y" ] && export kernel_version=6.11 || export kernel_version=6.6
+export kernel_version=6.11
 
 # print version
 echo -e "\r\n${GREEN_COLOR}Building $branch${RES}\r\n"
