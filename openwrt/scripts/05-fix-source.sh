@@ -36,6 +36,7 @@ if [ "$USE_GCC14" = y ] || [ "$USE_GCC15" = y ]; then
     rm -rf package/network/utils/linux-atm
     #git clone https://$github/sbwml/package_network_utils_linux-atm package/network/utils/linux-atm
     cp -a ../master/openwrt/package/network/utils/linux-atm package/network/utils/linux-atm
+    [ "$KERNEL_CLANG_LTO" = "y" ] && curl -s https://$mirror/openwrt/patch/linux-atm/Makefile > package/network/utils/linux-atm/Makefile
     # lsof
     rm -rf feeds/packages/utils/lsof
     cp -a ../master/packages/utils/lsof feeds/packages/utils/lsof
