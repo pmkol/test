@@ -268,9 +268,12 @@ if [ "$platform" = "x86_64" ] || [ "$platform" = "armv8" ]; then
 fi
 [ "$(whoami)" = "runner" ] && endgroup
 
-if [ "$USE_GCC14" = "y" ] || [ "$USE_GCC15" = "y" ]; then
+if [ "$USE_GCC13" = "y" ] || [ "$USE_GCC14" = "y" ]; then
     rm -rf toolchain/binutils
     cp -a ../master/openwrt/toolchain/binutils toolchain/binutils
+    rm -rf toolchain/gcc/patches-13.x
+    cp -a ../master/openwrt/toolchain/gcc/patches-13.x toolchain/gcc/patches-13.x
+    cp -a ../master/openwrt/toolchain/gcc/patches-14.x toolchain/gcc/patches-14.x
 fi
 
 rm -f 0*-*.sh
@@ -364,9 +367,6 @@ if [ "$USE_GCC13" = "y" ] || [ "$USE_GCC14" = "y" ] || [ "$USE_GCC15" = "y" ]; t
     # gcc14/15 init
     #cp -a toolchain/gcc/patches-13.x toolchain/gcc/patches-14.x
     #curl -s https://$mirror/openwrt/patch/generic/gcc-14/910-mbsd_multi.patch > toolchain/gcc/patches-14.x/910-mbsd_multi.patch
-    rm -rf toolchain/gcc/patches-13.x
-    cp -a ../master/openwrt/toolchain/gcc/patches-13.x toolchain/gcc/patches-13.x
-    cp -a ../master/openwrt/toolchain/gcc/patches-14.x toolchain/gcc/patches-14.x
     cp -a toolchain/gcc/patches-14.x toolchain/gcc/patches-15.x
     curl -s https://$mirror/openwrt/patch/generic/gcc-15/970-macos_arm64-building-fix.patch > toolchain/gcc/patches-15.x/970-macos_arm64-building-fix.patch
 elif [ ! "$ENABLE_GLIBC" = "y" ]; then
