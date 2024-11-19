@@ -22,8 +22,8 @@ mkdir -p target/linux/x86/patches-6.11
 curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/patches-6.11/100-fix_cs5535_clockevt.patch > target/linux/x86/patches-6.11/100-fix_cs5535_clockevt.patch
 curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/patches-6.11/103-pcengines_apu6_platform.patch > target/linux/x86/patches-6.11/103-pcengines_apu6_platform.patch
 # x86_64 - target
-sed -ri "s/(KERNEL_PATCHVER:=)[^\"]*/\16.6/" target/linux/x86/Makefile
-sed -i '/KERNEL_PATCHVER/a\KERNEL_TESTING_PATCHVER:=6.11' target/linux/x86/Makefile
+sed -ri "s/(KERNEL_PATCHVER:=)[^\"]*/\16.11/" target/linux/x86/Makefile
+sed -i '/KERNEL_PATCHVER/a\KERNEL_TESTING_PATCHVER:=6.12' target/linux/x86/Makefile
 curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/base-files/etc/board.d/01_leds > target/linux/x86/base-files/etc/board.d/01_leds
 curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/base-files/etc/board.d/02_network > target/linux/x86/base-files/etc/board.d/02_network
 
