@@ -141,7 +141,7 @@ git clone https://$github/sbwml/package_firmware_linux-firmware package/firmware
 if [ "$TESTING_KERNEL" = "y" ]; then
     # rtl8812au-ct - fix linux-6.11
     rm -rf package/kernel/rtl8812au-ct
-    git clone https://$github/sbwml/package_kernel_rtl8812au-ct package/kernel/rtl8812au-ct -b v6.11
+    git clone https://$github/pmkol/package_kernel_rtl8812au-ct package/kernel/rtl8812au-ct -b v6.11
     # add rtl8812au-ac
     git clone https://$github/sbwml/package_kernel_rtl8812au-ac package/kernel/rtl8812au-ac -b v6.11
 else
