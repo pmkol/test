@@ -6,6 +6,9 @@
 rm -rf target/linux/rockchip
 git clone https://$GITHUB_TOKEN@$github/pmkol/target_linux_rockchip target/linux/rockchip -b linux-6.11
 
+# bpf-headers - 6.11
+sed -ri "s/(PKG_PATCHVER:=)[^\"]*/\16.11/" package/kernel/bpf-headers/Makefile
+
 # x86_64 - target 6.6
 curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/64/config-6.6 > target/linux/x86/64/config-6.6
 curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/config-6.6 > target/linux/x86/config-6.6
