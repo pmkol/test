@@ -48,7 +48,7 @@ diff --git a/toolchain/gcc/common.mk b/toolchain/gcc/common.mk
 index cdbf9fa..a1a5108 100644
 --- a/toolchain/gcc/common.mk
 +++ b/toolchain/gcc/common.mk
-@@ -42,6 +42,10 @@ ifeq ($(PKG_VERSION),13.2.0)
+@@ -42,6 +42,10 @@ ifeq ($(PKG_VERSION),13.3.0)
    PKG_HASH:=0845e9621c9543a13f484e94584a49ffc0129970e9914624235fc1d061a0c083
  endif
  
