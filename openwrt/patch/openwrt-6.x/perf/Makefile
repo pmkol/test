@@ -42,7 +42,7 @@ HOST_CFLAGS += -I$(LINUX_DIR)/tools/include
 
 TARGET_LDFLAGS += $(INTL_LDFLAGS)
 
-TARGET_CFLAGS += -Wno-maybe-uninitialized
+TARGET_CFLAGS += -Wno-maybe-uninitialized -DNO_BPF_CO_RE=1
 
 MAKE_FLAGS = \
 	ARCH="$(LINUX_KARCH)" \
