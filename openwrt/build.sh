@@ -272,8 +272,8 @@ fi
 if [ "$USE_GCC13" = "y" ] || [ "$USE_GCC14" = "y" ]; then
     rm -rf toolchain/binutils
     cp -a ../master/openwrt/toolchain/binutils toolchain/binutils
-    #rm -rf toolchain/gcc
-    #cp -a ../master/openwrt/toolchain/gcc toolchain/gcc
+    rm -rf toolchain/gcc
+    cp -a ../master/openwrt/toolchain/gcc toolchain/gcc
     #rm -rf toolchain/gcc/patches-13.x
     #cp -a ../master/openwrt/toolchain/gcc/patches-13.x toolchain/gcc/patches-13.x
     #cp -a ../master/openwrt/toolchain/gcc/patches-14.x toolchain/gcc/patches-14.x
@@ -368,12 +368,12 @@ if [ "$USE_GCC13" = "y" ] || [ "$USE_GCC14" = "y" ] || [ "$USE_GCC15" = "y" ]; t
     [ "$USE_GCC13" = "y" ] && curl -s https://$mirror/openwrt/generic/config-gcc13 >> .config
     [ "$USE_GCC14" = "y" ] && curl -s https://$mirror/openwrt/generic/config-gcc14 >> .config
     #[ "$USE_GCC15" = "y" ] && curl -s https://$mirror/openwrt/generic/config-gcc15 >> .config
-    curl -s https://$mirror/openwrt/patch/generic/200-toolchain-gcc-update-to-13.3.patch | patch -p1
-    curl -s https://$mirror/openwrt/patch/generic/201-toolchain-gcc-add-support-for-GCC-14.patch | patch -p1
+    #curl -s https://$mirror/openwrt/patch/generic/200-toolchain-gcc-update-to-13.3.patch | patch -p1
+    #curl -s https://$mirror/openwrt/patch/generic/201-toolchain-gcc-add-support-for-GCC-14.patch | patch -p1
     #curl -s https://$mirror/openwrt/patch/generic/202-toolchain-gcc-add-support-for-GCC-15.patch | patch -p1
     # gcc14/15 init
-    cp -a toolchain/gcc/patches-13.x toolchain/gcc/patches-14.x
-    curl -s https://$mirror/openwrt/patch/generic/gcc-14/910-mbsd_multi.patch > toolchain/gcc/patches-14.x/910-mbsd_multi.patch
+    #cp -a toolchain/gcc/patches-13.x toolchain/gcc/patches-14.x
+    #curl -s https://$mirror/openwrt/patch/generic/gcc-14/910-mbsd_multi.patch > toolchain/gcc/patches-14.x/910-mbsd_multi.patch
     #cp -a toolchain/gcc/patches-14.x toolchain/gcc/patches-15.x
     #curl -s https://$mirror/openwrt/patch/generic/gcc-15/970-macos_arm64-building-fix.patch > toolchain/gcc/patches-15.x/970-macos_arm64-building-fix.patch
 elif [ ! "$ENABLE_GLIBC" = "y" ]; then
@@ -389,7 +389,7 @@ fi
 
 # test kernel
 [ "$TESTING_KERNEL" = "y" ] && [ "$platform" = "bcm53xx" ] && sed -i '1i\# CONFIG_PACKAGE_kselftests-bpf is not set\n# CONFIG_PACKAGE_perf is not set\n' .config
-[ "$TESTING_KERNEL" = "y" ] && sed -i '1i\# Test kernel\nCONFIG_TESTING_KERNEL=y\n' .config
+#[ "$TESTING_KERNEL" = "y" ] && sed -i '1i\# Test kernel\nCONFIG_TESTING_KERNEL=y\n' .config
 
 # not all kmod
 [ "$NO_KMOD" = "y" ] && sed -i '/CONFIG_ALL_KMODS=y/d; /CONFIG_ALL_NONSHARED=y/d' .config
