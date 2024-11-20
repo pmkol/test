@@ -38,7 +38,7 @@ rm -rf target/linux/armsr
 git clone https://nanopi:nanopi@$gitea/sbwml/target_linux_armsr target/linux/armsr
 
 # kernel - 6.x
-curl -s https://$mirror/tags/kernel-6.6 > include/kernel-6.6
+#curl -s https://$mirror/tags/kernel-6.6 > include/kernel-6.6
 curl -s https://$mirror/tags/kernel-6.11 > include/kernel-6.11
 
 # kenrel Vermagic
