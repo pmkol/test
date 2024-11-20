@@ -57,6 +57,12 @@ jobs:
       run: |
         BUILD_TOOLCHAIN=y TESTING_KERNEL=y ENABLE_LTO=y ENABLE_BPF=y USE_GCC13=y ENABLE_MOLD=y bash <(curl -sS https://raw.githubusercontent.com/${{ github.repository }}/build/openwrt/build.sh) ${{ matrix.tag.type }} ${{ matrix.model }}
 
+    - name: Extensive logs
+      working-directory: /builder
+      run: |
+        cd openwrt
+        make toolchain/gcc/compile V=s
+
     - name: Create release
       uses: ncipollo/release-action@v1.14.0
       with:
