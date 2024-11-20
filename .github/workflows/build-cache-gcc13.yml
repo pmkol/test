@@ -55,7 +55,7 @@ jobs:
     - name: Compile Toolchain
       working-directory: /builder
       run: |
-        BUILD_TOOLCHAIN=y ENABLE_LTO=y ENABLE_BPF=y USE_GCC13=y ENABLE_MOLD=y bash <(curl -sS https://raw.githubusercontent.com/${{ github.repository }}/build/openwrt/build.sh) ${{ matrix.tag.type }} ${{ matrix.model }}
+        BUILD_TOOLCHAIN=y TESTING_KERNEL=y ENABLE_LTO=y ENABLE_BPF=y USE_GCC13=y ENABLE_MOLD=y bash <(curl -sS https://raw.githubusercontent.com/${{ github.repository }}/build/openwrt/build.sh) ${{ matrix.tag.type }} ${{ matrix.model }}
 
     - name: Create release
       uses: ncipollo/release-action@v1.14.0
