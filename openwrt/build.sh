@@ -131,8 +131,8 @@ export \
     TESTING_KERNEL=$TESTING_KERNEL \
 
 # kernel version
-#[ "$TESTING_KERNEL" = "y" ] && export kernel_version=6.11 || export kernel_version=6.6
-export kernel_version=6.11
+[ "$TESTING_KERNEL" = "y" ] && export kernel_version=6.11 || export kernel_version=5.15
+#export kernel_version=6.11
 
 # print version
 echo -e "\r\n${GREEN_COLOR}Building $branch${RES}\r\n"
@@ -389,7 +389,7 @@ fi
 
 # test kernel
 [ "$TESTING_KERNEL" = "y" ] && [ "$platform" = "bcm53xx" ] && sed -i '1i\# CONFIG_PACKAGE_kselftests-bpf is not set\n# CONFIG_PACKAGE_perf is not set\n' .config
-#[ "$TESTING_KERNEL" = "y" ] && sed -i '1i\# Test kernel\nCONFIG_TESTING_KERNEL=y\n' .config
+[ "$TESTING_KERNEL" = "y" ] && sed -i '1i\# Test kernel\nCONFIG_TESTING_KERNEL=y\n' .config
 
 # not all kmod
 [ "$NO_KMOD" = "y" ] && sed -i '/CONFIG_ALL_KMODS=y/d; /CONFIG_ALL_NONSHARED=y/d' .config
