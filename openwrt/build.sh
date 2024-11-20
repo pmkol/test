@@ -131,8 +131,8 @@ export \
     TESTING_KERNEL=$TESTING_KERNEL \
 
 # kernel version
-[ "$TESTING_KERNEL" = "y" ] && export kernel_version=6.11 || export kernel_version=6.6
-#export kernel_version=6.11
+#[ "$TESTING_KERNEL" = "y" ] && export kernel_version=6.11 || export kernel_version=6.6
+export kernel_version=6.11
 
 # print version
 echo -e "\r\n${GREEN_COLOR}Building $branch${RES}\r\n"
@@ -272,13 +272,15 @@ fi
 if [ "$USE_GCC13" = "y" ] || [ "$USE_GCC14" = "y" ]; then
     rm -rf toolchain/binutils
     cp -a ../master/openwrt/toolchain/binutils toolchain/binutils
-    rm -rf toolchain/gcc/patches-13.x
-    cp -a ../master/openwrt/toolchain/gcc/patches-13.x toolchain/gcc/patches-13.x
-    cp -a ../master/openwrt/toolchain/gcc/patches-14.x toolchain/gcc/patches-14.x
-    rm -f toolchain/gcc/{Config.in,Config.version,common.mk}
-    cp -a ../master/openwrt/toolchain/gcc/Config.in toolchain/gcc/Config.in
-    cp -a ../master/openwrt/toolchain/gcc/Config.version toolchain/gcc/Config.version
-    cp -a ../master/openwrt/toolchain/gcc/common.mk toolchain/gcc/common.mk
+    rm -rf toolchain/gcc
+    cp -a ../master/openwrt/toolchain/gcc toolchain/gcc
+    #rm -rf toolchain/gcc/patches-13.x
+    #cp -a ../master/openwrt/toolchain/gcc/patches-13.x toolchain/gcc/patches-13.x
+    #cp -a ../master/openwrt/toolchain/gcc/patches-14.x toolchain/gcc/patches-14.x
+    #rm -f toolchain/gcc/{Config.in,Config.version,common.mk}
+    #cp -a ../master/openwrt/toolchain/gcc/Config.in toolchain/gcc/Config.in
+    #cp -a ../master/openwrt/toolchain/gcc/Config.version toolchain/gcc/Config.version
+    #cp -a ../master/openwrt/toolchain/gcc/common.mk toolchain/gcc/common.mk
 fi
 
 rm -f 0*-*.sh
