@@ -55,6 +55,7 @@ jobs:
     - name: Compile Toolchain
       working-directory: /builder
       run: |
+        export GITHUB_TOKEN=${{ secrets.OPENWRT_WORKFLOW_TOKEN }}
         BUILD_TOOLCHAIN=y ENABLE_LTO=y ENABLE_BPF=y USE_GCC14=y ENABLE_MOLD=y bash <(curl -sS https://raw.githubusercontent.com/${{ github.repository }}/build/openwrt/build.sh) ${{ matrix.tag.type }} ${{ matrix.model }}
 
     - name: Create release
