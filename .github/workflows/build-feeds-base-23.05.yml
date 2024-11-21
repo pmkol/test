@@ -1,0 +1,121 @@
+name: Build OpenWrt Feeds(base-23.05)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - base-23.05
+    paths:
+      - 'packages/**'
+
+jobs:
+  build:
+    name: Build ${{ matrix.arch }}-${{ matrix.tag }} Packages
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch:
+          - aarch64_generic
+          - x86_64
+        tag:
+          - openwrt-23.05
+
+    steps:
+      - name: Free disk space
+        shell: bash
+        run: |
+          set -euo pipefail
+          BUILD_MOUNT_PATH="${{ github.workspace }}"
+          sudo swapoff -a
+          sudo rm -f /swapfile /mnt/swapfile
+          sudo docker image prune -a -f
+          sudo snap set system refresh.retain=2
+          echo "::group::  Uninstall packages"
+          sudo apt-get -y purge firefox clang* gcc-12 ghc* google* llvm* mono* mongo* mysql* php*
+          sudo apt-get -y autoremove --purge
+          sudo apt-get clean
+          sudo rm -rf /etc/mysql /etc/php /usr/lib/{jvm,llvm} /usr/local /usr/src/* /var/lib/gems /var/lib/mysql /var/lib/snapd /etc/skel /opt/{microsoft,az,hostedtoolcache,cni,mssql-tools,pipx} /usr/share/{az*,dotnet,swift,miniconda,gradle*,java,kotlinc,ri,sbt} /root/{.sbt,.local,.npm} /usr/libexec/gcc/x86_64-linux-gnu/14 /usr/lib/x86_64-linux-gnu/{*clang*,*LLVM*} /home/linuxbrew
+          sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
+          rm -rf ~/{.cargo,.dotnet,.rustup}
+          echo "::endgroup::"
+          echo "::group::  Create SWAP"
+          sudo dd if=/dev/zero of="/mnt/swapfile" bs=1G count=8
+          sudo chmod 600 /mnt/swapfile
+          sudo mkswap /mnt/swapfile
+          sudo swapon /mnt/swapfile
+          echo "::endgroup::"
+          echo "::group::  Create Volume Group"
+          mnt_size=$(df -h /mnt | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//')
+          root_size=$(expr $(df -h / | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 2)
+          sudo truncate -s "$mnt_size"G /mnt/mnt.img
+          sudo truncate -s "$root_size"G /root.img
+          sudo losetup /dev/loop6 /mnt/mnt.img
+          sudo losetup /dev/loop7 /root.img
+          sudo pvcreate /dev/loop6
+          sudo pvcreate /dev/loop7
+          sudo vgcreate github /dev/loop6 /dev/loop7
+          sudo lvcreate -n runner -l 100%FREE github
+          sudo mkfs.xfs /dev/mapper/github-runner
+          sudo mkdir -p "$BUILD_MOUNT_PATH"
+          sudo mount /dev/mapper/github-runner "$BUILD_MOUNT_PATH"
+          sudo chown -R runner:runner "$BUILD_MOUNT_PATH"
+          echo "::endgroup::"
+          sudo sync
+          sudo sysctl -w vm.drop_caches=3
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          ref: base-23.05
+
+      - name: Fetch packages
+        run: |
+          feeds_list=$(curl -s "https://raw.githubusercontent.com/${{ github.repository }}/base-23.05/packages.txt")
+          echo "packages_list=$feeds_list" >> $GITHUB_ENV
+
+      - name: Show build info
+        run: |
+          echo -e "\n\e[1;32mMemory:\e[0m"
+          sudo free -h
+          echo -e "\e[1;32mAvailable Storage:\e[0m"
+          sudo df -Th
+          echo -e "PACKAGES: ${{ env.packages_list }}"
+
+      - name: Build packages
+        uses: pmkol/openwrt-gh-action-sdk@main
+        env:
+          ARCH: ${{ matrix.arch }}-${{ matrix.tag }}
+          FEEDNAME: packages_lite
+          INDEX: 1
+          KEY_BUILD: ${{ secrets.OPENWRT_PRIVATE_KEY }}
+          NO_REFRESH_CHECK: true
+          NO_SHFMT_CHECK: true
+          IGNORE_ERRORS: true
+
+      - name: Upload packages
+        run: |
+          mkdir -p /tmp/openwrt_base/${{ matrix.arch }}/
+          mv bin/packages/${{ matrix.arch }}/packages_lite/* /tmp/openwrt_base/${{ matrix.arch }}
+          echo "latest_release=$(date +'%Y%m%d')" >> $GITHUB_ENV
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          ref: packages
+
+      - name: Git push
+        continue-on-error: true
+        run: |
+          rm -rf openwrt_base/23.05/${{ matrix.arch }}
+          mkdir -p openwrt_base/23.05/${{ matrix.arch }}
+          mv /tmp/openwrt_base/${{ matrix.arch }} ./openwrt_base/23.05
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+          git add openwrt_base/23.05/${{ matrix.arch }}
+          if ! git diff-index --quiet HEAD --; then
+            git commit -sm "Update packages_base - ${{env.latest_release}}"
+            git push "https://${{ github.actor }}:${{ secrets.OPENWRT_WORKFLOW_TOKEN }}@github.com/${{ github.repository }}" HEAD:packages --force
+          else
+            echo "No changes to commit, skipping push."
+          fi
