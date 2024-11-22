@@ -1,0 +1,1 @@
+{"architecture": "aarch64_generic", "packages":{"firewall4": "2024-05-21-4c01d1eb-1", "libnftnl11": "1.2.6-1", "luci-app-firewall": "git-24.326.79963-91443c7", "luci-i18n-firewall-zh-cn": "git-24.326.79963-91443c7", "nftables-json": "1.0.9-1", "nftables-nojson": "1.0.9-1"}}

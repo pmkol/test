@@ -1,0 +1,105 @@
+Package: firewall4
+Version: 2024-05-21-4c01d1eb-1
+Depends: ucode (>=2022.03.22), libc, kmod-nft-core, kmod-nft-fib, kmod-nft-offload, kmod-nft-nat, nftables-json, ucode, ucode-mod-fs, ucode-mod-ubus, ucode-mod-uci
+Provides: uci-firewall
+Source: /feed/firewall4
+SourceName: firewall4
+License: ISC
+Section: net
+SourceDateEpoch: 1732227163
+Maintainer: Jo-Philipp Wich <jo@mein.io>
+Architecture: aarch64_generic
+Installed-Size: 30000
+Filename: firewall4_2024-05-21-4c01d1eb-1_aarch64_generic.ipk
+Size: 30981
+SHA256sum: 4ba5fcc821875294cc844d72d9911aefeb101bcf986ce71c2d7da14d6e706e09
+Description:  This package provides an nftables-based implementation of the UCI firewall
+ sharing the same configuration format.
+
+Package: libnftnl11
+Version: 1.2.6-1
+Depends: libc, libmnl0
+Provides: libnftnl
+Source: /feed/libnftnl
+SourceName: libnftnl
+License: GPL-2.0-or-later
+LicenseFiles: COPYING
+Section: libs
+SourceDateEpoch: 1732227163
+ABIVersion: 11
+CPE-ID: cpe:/a:netfilter:libnftnl
+Maintainer: Steven Barth <steven@midlink.org>
+Architecture: aarch64_generic
+Installed-Size: 65068
+Filename: libnftnl11_1.2.6-1_aarch64_generic.ipk
+Size: 65743
+SHA256sum: cad688e48789320818b9f59bc6c1fb920ed3eceb3ed85c51aac4561feb4967f7
+Description:  libnftnl is a userspace library providing a low-level netlink
+ programming interface (API) to the in-kernel nf_tables subsystem.
+
+Package: luci-app-firewall
+Version: git-24.326.79963-91443c7
+Depends: libc, uci-firewall
+Source: /feed/luci-app-firewall
+SourceName: luci-app-firewall
+License: Apache-2.0
+Section: luci
+SourceDateEpoch: 1732227163
+Maintainer: OpenWrt LuCI community
+Architecture: all
+Installed-Size: 17660
+Filename: luci-app-firewall_git-24.326.79963-91443c7_all.ipk
+Size: 18545
+SHA256sum: 2491045973cd469d157bbc764c640ddc29c04920111eaf894abdaffebea439cd
+Description:  Firewall and Portforwarding application
+
+Package: luci-i18n-firewall-zh-cn
+Version: git-24.326.79963-91443c7
+Depends: libc, luci-app-firewall
+Source: /feed/luci-app-firewall
+SourceName: luci-i18n-firewall-zh-cn
+License: Apache-2.0
+Section: luci
+SourceDateEpoch: 1732227163
+Architecture: all
+Installed-Size: 7690
+Filename: luci-i18n-firewall-zh-cn_git-24.326.79963-91443c7_all.ipk
+Size: 8473
+SHA256sum: 718b611cc273c215baa511f30836a9b08a33f320ae395f54efa405b0e30258cd
+Description:  Translation for luci-app-firewall - 简体中文 (Chinese Simplified)
+
+Package: nftables-json
+Version: 1.0.9-1
+Depends: libc, kmod-nft-core, libnftnl11, jansson4
+Provides: nftables
+Source: /feed/nftables
+SourceName: nftables-json
+License: GPL-2.0
+LicenseFiles: COPYING
+Section: net
+SourceDateEpoch: 1732227163
+Architecture: aarch64_generic
+Installed-Size: 312774
+Filename: nftables-json_1.0.9-1_aarch64_generic.ipk
+Size: 312125
+SHA256sum: 7342d592d87ebc4246e8fcf97fa51adb598528e1e34cd20dca206bf0baffc2a1
+Description:  nftables userspace utility with JSON support
+
+Package: nftables-nojson
+Version: 1.0.9-1
+Depends: libc, kmod-nft-core, libnftnl11
+Conflicts: nftables-json
+Provides: nftables
+Source: /feed/nftables
+SourceName: nftables-nojson
+License: GPL-2.0
+LicenseFiles: COPYING
+Section: net
+SourceDateEpoch: 1732227163
+Architecture: aarch64_generic
+Installed-Size: 276199
+Filename: nftables-nojson_1.0.9-1_aarch64_generic.ipk
+Size: 275804
+SHA256sum: 071aecc2b847a5a8dc873e95efd02f730e27e530ef3824cdbb28b747c2137149
+Description:  nftables userspace utility no JSON support
+
