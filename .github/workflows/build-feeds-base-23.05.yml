@@ -116,3 +116,5 @@ jobs:
           git add openwrt_base/23.05/${{ matrix.arch }}
           git commit -sm "Update packages_base - ${{env.latest_release}}"
           git push "https://${{ github.actor }}:${{ secrets.OPENWRT_WORKFLOW_TOKEN }}@github.com/${{ github.repository }}" HEAD:packages --force
+          git show --stat HEAD
+
