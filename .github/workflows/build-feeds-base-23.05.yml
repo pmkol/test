@@ -115,5 +115,5 @@ jobs:
           git config --global user.email 'actions@github.com'
           git add openwrt_base/23.05/${{ matrix.arch }}
           git commit -sm "Update base_${{ matrix.arch }} - ${{env.latest_release}}"
-          git push "https://${{ github.actor }}:${{ secrets.OPENWRT_WORKFLOW_TOKEN }}@github.com/${{ github.repository }}" HEAD:packages --force
+          git push "https://${{ github.actor }}:${{ secrets.OPENWRT_WORKFLOW_TOKEN }}@github.com/${{ github.repository }}" HEAD --force
           git show --stat HEAD
