@@ -109,6 +109,8 @@ jobs:
         run: |
           reset_commit=$(git rev-list --max-parents=0 HEAD)
           git reset --hard "$reset_commit"
+          git log
+          rm -rf openwrt_base/23.05/${{ matrix.arch }}
           mkdir -p openwrt_base/23.05/${{ matrix.arch }}
           mv /tmp/openwrt_base/${{ matrix.arch }} ./openwrt_base/23.05
           git config --global user.name 'GitHub Actions'
