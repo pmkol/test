@@ -210,22 +210,12 @@ else
 fi
 
 # feeds mirror
-if [ "$1" = "rc2" ]; then
-    packages="^$(grep packages feeds.conf.default | awk -F^ '{print $2}')"
-    luci="^$(grep luci feeds.conf.default | awk -F^ '{print $2}')"
-    routing="^$(grep routing feeds.conf.default | awk -F^ '{print $2}')"
-    telephony="^$(grep telephony feeds.conf.default | awk -F^ '{print $2}')"
-else
-    packages=";$branch"
-    luci=";$branch"
-    routing=";$branch"
-    telephony=";$branch"
-fi
+branch=openwrt-23.05
 cat > feeds.conf <<EOF
-src-git packages https://$github/openwrt/packages.git$packages
-src-git luci https://$github/openwrt/luci.git$luci
-src-git routing https://$github/openwrt/routing.git$routing
-src-git telephony https://$github/openwrt/telephony.git$telephony
+src-git packages https://$github/openwrt/packages.git;$branch
+src-git luci https://$github/openwrt/luci.git;$branch
+src-git routing https://$github/openwrt/routing.git;$branch
+src-git telephony https://$github/openwrt/telephony.git;$branch
 EOF
 
 # Init feeds
