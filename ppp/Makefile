@@ -12,35 +12,35 @@ PKG_NAME:=ppp
 PKG_VERSION:=2.5.1
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://download.samba.org/pub/ppp
-PKG_HASH:=733b7f5840b613da4eab0429a5081293275f06ba8b528e1b8eea6964faf0243a
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_URL:=https://github.com/ppp-project/ppp
+PKG_SOURCE_DATE:=2024-09-18
+PKG_SOURCE_VERSION:=d5aeec65752d4a9b3bb46771d0b221c4a4a6539e
+PKG_MIRROR_HASH:=b98125933d8160ff3476b053414e787e65a94948c0ecee53f6261cd403ff4b03
 
 PKG_MAINTAINER:=Felix Fietkau <nbd@nbd.name>
 PKG_LICENSE:=BSD-4-Clause
 PKG_CPE_ID:=cpe:/a:samba:ppp
-PKG_FIXUP:=autoreconf
-
-# pcap is statically linked in patch #310:
-PKG_BUILD_DEPENDS:=libpcap
 
 PKG_ASLR_PIE_REGULAR:=1
+PKG_BUILD_DEPENDS:=libpcap
 PKG_BUILD_FLAGS:=gc-sections lto
 PKG_BUILD_PARALLEL:=1
+PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
-# enable_microsoft_extensions should be yes for mppe/mppc, but it lead to openssl in upstream:
-# https://github.com/ppp-project/ppp/blob/master/pppd/crypto_ms.c#L125
 CONFIGURE_VARS += \
-    enable_microsoft_extensions=yes \
 	enable_eaptls=no \
+	enable_microsoft_extensions=yes \
 	enable_peap=no
 
 CONFIGURE_ARGS += \
+	with_openssl=no \
+	with_pam=no \
 	with_pcap=no \
-	with_static_pcap=yes \
-	with_openssl=no
+	with_srp=no \
+	with_static_pcap=yes
 
 define Package/ppp/Default
   SECTION:=net
@@ -50,16 +50,13 @@ endef
 
 define Package/ppp
 $(call Package/ppp/Default)
-  DEPENDS:=+kmod-ppp +libpam
+  DEPENDS:=+kmod-ppp
   TITLE:=PPP daemon
   VARIANT:=default
 endef
 
-# implies tdb-trivial database:
 define Package/ppp-multilink
 $(call Package/ppp/Default)
-  CONFIGURE_VARS += \
-      enable_multilink=yes
   DEPENDS:=+kmod-ppp
   TITLE:=PPP daemon (with multilink support)
   VARIANT:=multilink
@@ -187,42 +184,16 @@ This tool performs the same discovery process as pppoe, but does
 not initiate a session. Can be useful to debug pppoe.
 endef
 
-
-define Build/Configure
-$(call Build/Configure/Default,, \
-	UNAME_S="Linux" \
-	UNAME_R="$(LINUX_VERSION)" \
-	UNAME_M="$(ARCH)" \
-)
-	mkdir -p $(PKG_BUILD_DIR)/pppd/plugins/pppoatm/linux
-	$(CP) \
-		$(LINUX_DIR)/include/linux/compiler.h \
-		$(LINUX_DIR)/include/$(LINUX_UAPI_DIR)linux/atm*.h \
-		$(PKG_BUILD_DIR)/pppd/plugins/pppoatm/linux/
-
-	# Kernel 4.14.9+ only, ignore the exit status of cp in case the file
-	# doesn't exits
-	-$(CP) $(LINUX_DIR)/include/linux/compiler_types.h \
-		$(PKG_BUILD_DIR)/pppd/plugins/pppoatm/linux/
-endef
-
-MAKE_FLAGS += COPTS="$(TARGET_CFLAGS)" \
-		PRECOMPILED_FILTER=1 \
-		STAGING_DIR="$(STAGING_DIR)"
-
 ifeq ($(BUILD_VARIANT),multilink)
-  MAKE_FLAGS += HAVE_MULTILINK=y
-else
-  MAKE_FLAGS += HAVE_MULTILINK=
-endif
-
-ifdef CONFIG_USE_MUSL
-  MAKE_FLAGS += USE_LIBUTIL=
+  CONFIGURE_VARS += \
+	enable_multilink=yes
 endif
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include
 	$(CP) $(PKG_INSTALL_DIR)/usr/include/pppd $(1)/usr/include/
+	$(INSTALL_DIR) $(1)/usr/lib/pkgconfig
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/pkgconfig/*.pc $(1)/usr/lib/pkgconfig
 endef
 
 define Package/ppp/script_install

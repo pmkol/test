@@ -13,7 +13,7 @@ Signed-off-by: Jo-Philipp Wich <jo@mein.io>
       * MTU we want to use, and our link MRU.
       */
 -    mtu = ho->neg_mru? ho->mru: PPP_MRU;
-+	mtu = MIN(ho->neg_mru? ho->mru: PPP_MRU, ao->mru);
++    mtu = MIN(ho->neg_mru? ho->mru: PPP_MRU, ao->mru);
      mru = go->neg_mru? MAX(wo->mru, go->mru): PPP_MRU;
  #ifdef PPP_WITH_MULTILINK
      if (!(multilink && go->neg_mrru && ho->neg_mrru))

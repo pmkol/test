@@ -371,7 +371,7 @@
 +
 +#include "pptp_callmgr.h"
 +#include <net/if.h>
-+#include <net/ethernet.h>
++#include <linux/if_ether.h>
 +#include <linux/if_pppox.h>
 +
 +#include <stdio.h>
@@ -637,7 +637,7 @@
 +
 +void plugin_init(void)
 +{
-+    add_options(Options);
++    ppp_add_options(Options);
 +
 +    info("PPTP plugin version %s", PPTP_VERSION);
 +

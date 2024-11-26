@@ -164,7 +164,7 @@
  void demand_unblock(void); /* set all NPs to pass packets */
  void demand_discard(void); /* set all NPs to discard packets */
 -void demand_rexmit(int);	/* retransmit saved frames for an NP */
-+void demand_rexmit(int, u_int32_t);	/* retransmit saved frames for an NP */
++void demand_rexmit(int, u_int32_t); /* retransmit saved frames for an NP */
  int  loop_chars(unsigned char *, int); /* process chars from loopback */
  int  loop_frame(unsigned char *, int); /* should we bring link up? */
  

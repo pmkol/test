@@ -39,8 +39,8 @@ Signed-off-by: Jo-Philipp Wich <jo@mein.io>
  
 +if PPP_WITH_PRECOMPILED_FILTER
 +pppd_SOURCES += pcap_pcc.c
-+pppd_include_HEADERS  += pcap_pcc.h
-+pppd_LIBS      += $(STAGING_DIR)/usr/lib/libpcap.a
++pppd_include_HEADERS += pcap_pcc.h
++pppd_LIBS += $(STAGING_DIR)/usr/lib/libpcap.a
 +endif
 +
  if PPP_WITH_PLUGINS
@@ -115,13 +115,14 @@ Signed-off-by: Jo-Philipp Wich <jo@mein.io>
   * setpassfilter - Set the pass filter for packets
 --- /dev/null
 +++ b/pppd/pcap_pcc.c
-@@ -0,0 +1,74 @@
+@@ -0,0 +1,75 @@
 +#include <pcap.h>
 +#include <pcap-bpf.h>
 +#include <stdio.h>
 +#include <stdlib.h>
 +#include <string.h>
 +#include <errno.h>
++#include "options.h"
 +#include "pppd.h"
 +
 +int pcap_pre_compiled (char * fname, struct bpf_program *p)
