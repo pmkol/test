@@ -1,1 +1,1 @@
-bash-completion firewall4 libnftnl luci-app-firewall nftables ppp zlib
+bash-completion curl firewall4 libnftnl luci-app-firewall nftables nghttp3 ngtcp2 openssl ppp zlib
