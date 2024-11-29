@@ -19,7 +19,7 @@ include $(INCLUDE_DIR)/target.mk
 define Package/autocore-arm
   TITLE:=ARM auto core script.
   MAINTAINER:=CN_SZTL
-  DEPENDS:=@(arm||aarch64||aarch64_generic) \
+  DEPENDS:=@(arm||aarch64) \
     +TARGET_bcm27xx:bcm27xx-userland \
     +TARGET_bcm53xx:nvram
   VARIANT:=arm
@@ -28,7 +28,7 @@ endef
 define Package/autocore-x86
   TITLE:=x86/x64 auto core loadbalance script.
   MAINTAINER:=Lean / CN_SZTL
-  DEPENDS:=@(x86_64) +lm-sensors +ethtool
+  DEPENDS:=@TARGET_x86 +lm-sensors +ethtool
   VARIANT:=x86
 endef
 
