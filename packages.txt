@@ -1,1 +1,1 @@
-autocore bash-completion curl firewall4 libnftnl luci-app-firewall nftables nghttp3 ngtcp2 ppp zlib
+bash-completion curl firewall4 ftp libnftnl luci-app-firewall nftables nghttp3 ngtcp2 ppp zlib
