@@ -98,6 +98,17 @@ jobs:
           mkdir -p /tmp/openwrt_lite/${{ matrix.arch }}/
           mv bin/packages/${{ matrix.arch }}/packages_lite/* /tmp/openwrt_lite/${{ matrix.arch }}
           echo "latest_release=$(date +'%Y%m%d')" >> $GITHUB_ENV
+          tar -cJvf /tmp/openwrt_lite/packages-lite-${{ matrix.arch }}.tar.xz -C /tmp/openwrt_lite ${{ matrix.arch }}
+
+      - name: Create release
+        uses: ncipollo/release-action@v1.14.0
+        with:
+          name: ${{ matrix.tag.version }}
+          allowUpdates: true
+          tag: ${{ matrix.tag.version }}
+          replacesArtifacts: true
+          token: ${{ secrets.OPENWRT_WORKFLOW_TOKEN }}
+          artifacts: /tmp/openwrt_lite/packages-lite-${{ matrix.arch }}.tar.xz
 
       - uses: actions/checkout@v4
         with:
