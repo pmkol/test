@@ -1,0 +1,35 @@
+
+name: Update OpenWrt Feeds(extd-23.05)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  sync:
+    name: Sync Upstream
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          ref: extd-23.05
+
+      - name: Update Feeds
+        run: |
+          export mirror=raw.githubusercontent.com/pmkol/openwrt-feeds/main
+          curl -sO https://$mirror/openwrt-23.05/update-extd-23.05.sh
+          bash update-extd-23.05.sh
+          rm -f update-extd-23.05.sh
+          echo "latest_release=$(date +'%Y%m%d')" >> $GITHUB_ENV
+
+      - name: Git Push
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+          git add .
+          if ! git diff-index --quiet HEAD --; then
+            git commit -sm "Sync upstream up to ${{env.latest_release}}"
+            git push "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" HEAD:extd-23.05
+          else
+            echo "No changes to commit, skipping push."
+          fi
