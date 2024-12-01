@@ -103,9 +103,9 @@ jobs:
       - name: Create release
         uses: ncipollo/release-action@v1.14.0
         with:
-          name: ${{ matrix.tag.version }}
+          name: ${{ matrix.tag }}
           allowUpdates: true
-          tag: ${{ matrix.tag.version }}
+          tag: ${{ matrix.tag }}
           replacesArtifacts: true
           token: ${{ secrets.OPENWRT_WORKFLOW_TOKEN }}
           artifacts: /tmp/openwrt_lite/packages-lite-${{ matrix.arch }}.tar.xz
