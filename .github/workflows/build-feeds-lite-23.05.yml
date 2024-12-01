@@ -95,7 +95,7 @@ jobs:
 
       - name: Upload packages
         run: |
-          mkdir -p /tmp/openwrt_lite${{ matrix.arch }}/
+          mkdir -p /tmp/openwrt_lite/${{ matrix.arch }}/
           mv bin/packages/${{ matrix.arch }}/packages_lite/* /tmp/openwrt_lite/${{ matrix.arch }}
           echo "latest_release=$(date +'%Y%m%d')" >> $GITHUB_ENV
 
