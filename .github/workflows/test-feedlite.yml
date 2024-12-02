@@ -24,6 +24,7 @@ jobs:
           git reset --hard "$reset_commit"
           curl -LO https://github.com/${{ github.repository }}/releases/download/openwrt-23.05/packages-lite-x86_64.tar.xz
           curl -LO https://github.com/${{ github.repository }}/releases/download/openwrt-23.05/packages-lite-aarch64_generic.tar.xz
+          mkdir -p openwrt_lite/23.05
           for file in packages-lite-*.tar.xz; do tar -xf "$file" -C openwrt_lite/23.05; done
           rm -f packages-lite-*.tar.xz
 
