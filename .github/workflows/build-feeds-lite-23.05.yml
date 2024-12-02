@@ -115,7 +115,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          fetch-depth: 0
           ref: packages
       
       - name: Download packages
@@ -123,9 +123,9 @@ jobs:
           echo "latest_release=$(date +'%Y%m%d')" >> $GITHUB_ENV
           reset_commit=$(git rev-list --max-parents=0 HEAD)
           git reset --hard "$reset_commit"
-          rm -rf openwrt_lite/23.05/*
           curl -LO https://github.com/${{ github.repository }}/releases/download/openwrt-23.05/packages-lite-x86_64.tar.xz
           curl -LO https://github.com/${{ github.repository }}/releases/download/openwrt-23.05/packages-lite-aarch64_generic.tar.xz
+          mkdir -p openwrt_lite/23.05
           for file in packages-lite-*.tar.xz; do tar -xf "$file" -C openwrt_lite/23.05; done
           rm -f packages-lite-*.tar.xz
 
