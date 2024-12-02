@@ -5,8 +5,6 @@ on:
   push:
     branches:
       - lite-23.05
-    paths:
-      - 'packages/**'
 
 jobs:
   build:
@@ -97,7 +95,6 @@ jobs:
         run: |
           mkdir -p /tmp/openwrt_lite/${{ matrix.arch }}/
           mv bin/packages/${{ matrix.arch }}/packages_lite/* /tmp/openwrt_lite/${{ matrix.arch }}
-          echo "latest_release=$(date +'%Y%m%d')" >> $GITHUB_ENV
           tar -cJvf /tmp/openwrt_lite/packages-lite-${{ matrix.arch }}.tar.xz -C /tmp/openwrt_lite ${{ matrix.arch }}
 
       - name: Create release
@@ -110,22 +107,32 @@ jobs:
           token: ${{ secrets.OPENWRT_WORKFLOW_TOKEN }}
           artifacts: /tmp/openwrt_lite/packages-lite-${{ matrix.arch }}.tar.xz
 
+  update:
+    needs: build
+    name: Push Built Packages
+    runs-on: ubuntu-latest
+
+    steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 1
           ref: packages
+      
+      - name: Download packages
+        run: |
+          echo "latest_release=$(date +'%Y%m%d')" >> $GITHUB_ENV
+          reset_commit=$(git rev-list --max-parents=0 HEAD)
+          git reset --hard "$reset_commit"
+          rm -rf openwrt_lite/23.05/*
+          curl -sO https://github.com/${{ github.repository }}/releases/download/openwrt-23.05/packages-lite-aarch64_generic.tar.xz
+          for file in packages-lite-*.tar.xz; do tar -xf "$file" -C openwrt_lite/23.05; done
+          rm -f packages-lite-*.tar.xz
 
       - name: Git push
         continue-on-error: true
         run: |
-          reset_commit=$(git rev-list --max-parents=0 HEAD)
-          git reset --hard "$reset_commit"
-          rm -rf openwrt_lite/23.05/${{ matrix.arch }}
-          mkdir -p openwrt_lite/23.05/${{ matrix.arch }}
-          mv /tmp/openwrt_lite/${{ matrix.arch }} ./openwrt_lite/23.05
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
-          git add openwrt_lite/23.05/${{ matrix.arch }}
-          git commit -sm "Update lite_${{ matrix.arch }} - ${{env.latest_release}}"
-          git push "https://${{ github.actor }}:${{ secrets.OPENWRT_WORKFLOW_TOKEN }}@github.com/${{ github.repository }}" HEAD --force
-          git show --stat HEAD
+          git add openwrt_lite/23.05/*
+          git commit -sm "[${{env.latest_release}}] Update packages lite-23.05"
+          git push --force
