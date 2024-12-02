@@ -20,8 +20,13 @@ jobs:
       - name: Download packages
         run: |
           echo "latest_release=$(date +'%Y%m%d')" >> $GITHUB_ENV
-          reset_commit=$(git rev-list --max-parents=0 HEAD)
-          git reset --hard "$reset_commit"
+          git subtree split --prefix=openwrt_lite/23.05 -b temp-subtree
+          git filter-branch --force --index-filter \
+            "git rm -rf --cached --ignore-unmatch openwrt_lite/23.05" \
+            --prune-empty --tag-name-filter cat -- --all
+          git checkout packages
+          git merge --allow-unrelated-histories --no-commit temp-subtree
+          rm -rf openwrt_lite/23.05/*
           curl -LO https://github.com/${{ github.repository }}/releases/download/openwrt-23.05/packages-lite-x86_64.tar.xz
           curl -LO https://github.com/${{ github.repository }}/releases/download/openwrt-23.05/packages-lite-aarch64_generic.tar.xz
           mkdir -p openwrt_lite/23.05
