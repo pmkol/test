@@ -122,8 +122,6 @@ jobs:
         run: |
           echo "latest_release=$(date +'%Y%m%d')" >> $GITHUB_ENV
           git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch openwrt_base/23.05/**/*.ipk' --prune-empty --tag-name-filter cat HEAD
-          git reflog expire --expire=now HEAD
-          git gc --prune=now
           curl -LO https://github.com/${{ github.repository }}/releases/download/openwrt-23.05/packages-base-x86_64.tar.xz
           curl -LO https://github.com/${{ github.repository }}/releases/download/openwrt-23.05/packages-base-aarch64_generic.tar.xz
           rm -rf openwrt_base/23.05
