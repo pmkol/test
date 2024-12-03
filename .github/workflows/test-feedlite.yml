@@ -21,11 +21,10 @@ jobs:
         run: |
           echo "latest_release=$(date +'%Y%m%d')" >> $GITHUB_ENV
           git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch openwrt_lite/23.05/*.ipk' --prune-empty --tag-name-filter cat -- --all
-          ls -l openwrt_lite/23.05
           curl -LO https://github.com/${{ github.repository }}/releases/download/openwrt-23.05/packages-lite-x86_64.tar.xz
           curl -LO https://github.com/${{ github.repository }}/releases/download/openwrt-23.05/packages-lite-aarch64_generic.tar.xz
-          rm -rf openwrt_lite/23.05/*
           mkdir -p openwrt_lite/23.05
+          ls -l openwrt_lite/23.05
           for file in packages-lite-*.tar.xz; do tar -xf "$file" -C openwrt_lite/23.05; done
           rm -f packages-lite-*.tar.xz
 
