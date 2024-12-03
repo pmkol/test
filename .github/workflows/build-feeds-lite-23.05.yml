@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     name: Build ${{ matrix.arch }}-${{ matrix.tag }} Packages
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
@@ -110,7 +110,7 @@ jobs:
   push:
     needs: build
     name: Push Built Packages
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: actions/checkout@v4
@@ -121,10 +121,10 @@ jobs:
       - name: Download packages
         run: |
           echo "latest_release=$(date +'%Y%m%d')" >> $GITHUB_ENV
-          reset_commit=$(git rev-list --max-parents=0 HEAD)
-          git reset --hard "$reset_commit"
+          git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch openwrt_lite/23.05/**/*.ipk' --prune-empty --tag-name-filter cat HEAD
           curl -LO https://github.com/${{ github.repository }}/releases/download/openwrt-23.05/packages-lite-x86_64.tar.xz
           curl -LO https://github.com/${{ github.repository }}/releases/download/openwrt-23.05/packages-lite-aarch64_generic.tar.xz
+          rm -rf openwrt_lite/23.05
           mkdir -p openwrt_lite/23.05
           for file in packages-lite-*.tar.xz; do tar -xf "$file" -C openwrt_lite/23.05; done
           rm -f packages-lite-*.tar.xz
