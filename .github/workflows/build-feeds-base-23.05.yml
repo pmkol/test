@@ -105,7 +105,7 @@ jobs:
           tag: ${{ matrix.tag }}
           replacesArtifacts: true
           token: ${{ secrets.OPENWRT_WORKFLOW_TOKEN }}
-          artifacts: /tmp/openwrt_extd/packages-extd-${{ matrix.arch }}.tar.xz
+          artifacts: /tmp/openwrt_base/packages-base-${{ matrix.arch }}.tar.xz
 
   push:
     needs: build
@@ -134,6 +134,6 @@ jobs:
         run: |
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
-          git add openwrt_extd/23.05/*
+          git add openwrt_base/23.05/*
           git commit -sm "[${{env.latest_release}}] Update packages base-23.05"
           git push --force
