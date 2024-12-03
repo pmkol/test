@@ -317,10 +317,10 @@ Require-User: root:mihomo=7890
 SourceDateEpoch: 1733074355
 Maintainer: Joseph Mory <morytyann@gmail.com>
 Architecture: aarch64_generic
-Installed-Size: 10121609
+Installed-Size: 10121599
 Filename: mihomo_2024-11-24-eb985b00-1_aarch64_generic.ipk
-Size: 10090093
-SHA256sum: 4eb379d00d0ca1786e94ef25f45c60e8292f5e995c48f337f5165f56f98e5a5f
+Size: 10089845
+SHA256sum: fe5d615f4165a7f8febf279b7ae7c64016570b9cf8f584c57cecada26b852e82
 Description:  A rule based proxy in Go.
 
 Package: naiveproxy
@@ -823,7 +823,7 @@ Description:  Project V is a set of network tools that help you to build your ow
  This includes extra resources for v2ray-core.
 
 Package: v2ray-geoip
-Version: 2024-12-02-1
+Version: 2024-12-03-1
 Depends: libc
 Source: /feed/v2ray-geodata
 SourceName: v2ray-geoip
@@ -834,13 +834,13 @@ SourceDateEpoch: 1733074355
 Maintainer: openwrt-plus <git@github.com>
 Architecture: all
 Installed-Size: 3385273
-Filename: v2ray-geoip_2024-12-02-1_all.ipk
-Size: 3113078
-SHA256sum: 887784e859a398f717ca25ebda27d40371e24dfdc3466b60822bf9b4b044b409
+Filename: v2ray-geoip_2024-12-03-1_all.ipk
+Size: 3113077
+SHA256sum: b4d488cd5c5da90d54430c65431eaaac1c744ec19a072272cc56d9cbba89b0a4
 Description:  GeoIP List for V2Ray
 
 Package: v2ray-geosite
-Version: 2024-12-02-1
+Version: 2024-12-03-1
 Depends: libc
 Source: /feed/v2ray-geodata
 SourceName: v2ray-geosite
@@ -850,10 +850,10 @@ Section: net
 SourceDateEpoch: 1733074355
 Maintainer: openwrt-plus <git@github.com>
 Architecture: all
-Installed-Size: 2187430
-Filename: v2ray-geosite_2024-12-02-1_all.ipk
-Size: 2187816
-SHA256sum: 23d8412ca0ca6d81dfc396b783bdb08876b9455b4fa1e4675c4302a386030491
+Installed-Size: 2192311
+Filename: v2ray-geosite_2024-12-03-1_all.ipk
+Size: 2192947
+SHA256sum: be7d564c9e059f8c1be64cf78878670201f8d77e822d53eeded3d71ca2eb3fd9
 Description:  Geosite List for V2Ray
 
 Package: v2ray-plugin

@@ -238,7 +238,7 @@ Architecture: x86_64
 Installed-Size: 11018887
 Filename: mihomo_2024-11-24-eb985b00-1_x86_64.ipk
 Size: 10989853
-SHA256sum: 0a49e836c9b984227450a0d7ff7e3bbb7ad5ff90521714dc09dcea6c486eab5a
+SHA256sum: 29f8f2cac197199f304d62a86190b94838b173998ed3c974375feff772850521
 Description:  A rule based proxy in Go.
 
 Package: naiveproxy
@@ -607,27 +607,27 @@ Description:  Project V is a set of network tools that help you to build your ow
  This includes extra resources for v2ray-core.
 
 Package: v2ray-geoip
-Version: 2024-12-02-1
+Version: 2024-12-03-1
 Depends: libc
 License: CC-BY-SA-4.0
 Section: net
 Architecture: all
 Installed-Size: 3385273
-Filename: v2ray-geoip_2024-12-02-1_all.ipk
-Size: 3113078
-SHA256sum: 887784e859a398f717ca25ebda27d40371e24dfdc3466b60822bf9b4b044b409
+Filename: v2ray-geoip_2024-12-03-1_all.ipk
+Size: 3113077
+SHA256sum: b4d488cd5c5da90d54430c65431eaaac1c744ec19a072272cc56d9cbba89b0a4
 Description:  GeoIP List for V2Ray
 
 Package: v2ray-geosite
-Version: 2024-12-02-1
+Version: 2024-12-03-1
 Depends: libc
 License: GPL-3.0
 Section: net
 Architecture: all
-Installed-Size: 2187430
-Filename: v2ray-geosite_2024-12-02-1_all.ipk
-Size: 2187816
-SHA256sum: 23d8412ca0ca6d81dfc396b783bdb08876b9455b4fa1e4675c4302a386030491
+Installed-Size: 2192311
+Filename: v2ray-geosite_2024-12-03-1_all.ipk
+Size: 2192947
+SHA256sum: be7d564c9e059f8c1be64cf78878670201f8d77e822d53eeded3d71ca2eb3fd9
 Description:  Geosite List for V2Ray
 
 Package: v2ray-plugin
