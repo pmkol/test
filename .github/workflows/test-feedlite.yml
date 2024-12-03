@@ -19,7 +19,7 @@ jobs:
       
       - name: Download packages
         run: |
-          echo "latest_release=$(date +'%Y%m%d')+0800" >> $GITHUB_ENV
+          echo "latest_release=$(TZ='Asia/Hong_Kong' date +'%Y%m%d')" >> $GITHUB_ENV
           git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch *.ipk' --prune-empty --tag-name-filter cat HEAD
           curl -LO https://github.com/${{ github.repository }}/releases/download/openwrt-23.05/packages-lite-x86_64.tar.xz
           curl -LO https://github.com/${{ github.repository }}/releases/download/openwrt-23.05/packages-lite-aarch64_generic.tar.xz
