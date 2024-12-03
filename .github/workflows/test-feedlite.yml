@@ -21,7 +21,7 @@ jobs:
         run: |
           echo "latest_release=$(date +'%Y%m%d')" >> $GITHUB_ENV
           reset_commit=$(git rev-list --max-parents=0 HEAD)
-          git reset --hard "$reset_commit"
+          git checkout "$reset_commit" -- openwrt_lite/23.05
           curl -LO https://github.com/${{ github.repository }}/releases/download/openwrt-23.05/packages-lite-x86_64.tar.xz
           curl -LO https://github.com/${{ github.repository }}/releases/download/openwrt-23.05/packages-lite-aarch64_generic.tar.xz
           mkdir -p openwrt_lite/23.05
