@@ -95,7 +95,7 @@ jobs:
         run: |
           mkdir -p /tmp/openwrt_base/${{ matrix.arch }}/
           mv bin/packages/${{ matrix.arch }}/packages_lite/* /tmp/openwrt_base/${{ matrix.arch }}
-          tar -cJvf /tmp/openwrt_extd/packages-base-${{ matrix.arch }}.tar.xz -C /tmp/openwrt_base ${{ matrix.arch }}
+          tar -cJvf /tmp/openwrt_base/packages-base-${{ matrix.arch }}.tar.xz -C /tmp/openwrt_base ${{ matrix.arch }}
 
       - name: Create release
         uses: ncipollo/release-action@v1.14.0
