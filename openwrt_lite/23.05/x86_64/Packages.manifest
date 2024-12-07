@@ -1,1 +1,169 @@
+Package: dae-geoip
+Version: 0.8.0-1
+Depends: libc, dae, v2ray-geoip
+Source: /feed/dae
+SourceName: dae-geoip
+License: AGPL-3.0-only
+Section: net
+SourceDateEpoch: 1733329823
+Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
+Architecture: all
+Installed-Size: 185
+Filename: dae-geoip_0.8.0-1_all.ipk
+Size: 906
+SHA256sum: bdf175c70e925115203e50763fdddad2d47d5c5b7ecb7b581d98fcf9e45eb222
+Description:  geoip for dae
+
+Package: dae-geosite
+Version: 0.8.0-1
+Depends: libc, dae, v2ray-geosite
+Source: /feed/dae
+SourceName: dae-geosite
+License: AGPL-3.0-only
+Section: net
+SourceDateEpoch: 1733329823
+Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
+Architecture: all
+Installed-Size: 186
+Filename: dae-geosite_0.8.0-1_all.ipk
+Size: 907
+SHA256sum: efeb8cce3ac49441c43b6d7771e8b1f8d84c9f7eaa88a4281fee354fd2a00469
+Description:  geosite for dae
+
+Package: dae
+Version: 0.8.0-1
+Depends: libc, ca-bundle, kmod-sched-core, kmod-sched-bpf, kmod-xdp-sockets-diag, kmod-veth
+Source: /feed/dae
+SourceName: dae
+License: AGPL-3.0-only
+Section: net
+SourceDateEpoch: 1733329823
+Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
+Architecture: x86_64
+Installed-Size: 10272664
+Filename: dae_0.8.0-1_x86_64.ipk
+Size: 10232278
+SHA256sum: 0e910e2242a58b5208436bb2b0c276867a9aba6a778dbcd758125703c4685be0
+Description:  dae, means goose, is a lightweight and high-performance transparent
+ proxy solution.
+ 
+ In order to improve the traffic diversion performance as much as possible,
+ dae runs the transparent proxy and traffic diversion suite in the linux
+ kernel by eBPF. Therefore, we have the opportunity to make the direct
+ traffic bypass the forwarding by proxy application and achieve true direct
+ traffic through. Under such a magic trick, there is almost no performance
+ loss and additional resource consumption for direct traffic.
+
+Package: daed
+Version: 0.8.0-1
+Depends: libc, ca-bundle, kmod-sched-core, kmod-sched-bpf, kmod-xdp-sockets-diag, kmod-veth, v2ray-geoip, v2ray-geosite
+Source: /feed/daed
+SourceName: daed
+License: AGPL-3.0-only MIT
+LicenseFiles: LICENSE wing/LICENSE
+Section: net
+SourceDateEpoch: 1733329823
+Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
+Architecture: x86_64
+Installed-Size: 18266056
+Filename: daed_0.8.0-1_x86_64.ipk
+Size: 18220950
+SHA256sum: f1106352c349c714033c906eb46c866918a591b9b15a9353399d064e350145f4
+Description:  daed is a backend of dae, provides a method to bundle arbitrary
+ frontend, dae and geodata into one binary.
+
+Package: luci-app-dae
+Version: git-24.339.59423-18ab1d5
+Depends: libc, dae, dae-geoip, dae-geosite
+Source: /feed/luci-app-dae
+SourceName: luci-app-dae
+License: Apache-2.0
+Section: luci
+SourceDateEpoch: 1733329823
+Maintainer: OpenWrt LuCI community
+Architecture: all
+Installed-Size: 2573
+Filename: luci-app-dae_git-24.339.59423-18ab1d5_all.ipk
+Size: 3415
+SHA256sum: 533a288e9cfeb3fd66c4193a30de2271032f223c942419831dd4e90afe9e0894
+Description:  LuCI app for dae
+
+Package: luci-app-daed
+Version: git-24.339.59423-18ab1d5
+Depends: libc, daed
+Source: /feed/luci-app-daed
+SourceName: luci-app-daed
+Section: luci
+SourceDateEpoch: 1733329823
+Maintainer: OpenWrt LuCI community
+Architecture: all
+Installed-Size: 2399
+Filename: luci-app-daed_git-24.339.59423-18ab1d5_all.ipk
+Size: 3213
+SHA256sum: 662a4fa04bf2e4edebf4cdbd7fea7f5bf68c83263ba515280532f2d56871438e
+Description:  LuCI app for dae dashboard
+
+Package: luci-i18n-dae-zh-cn
+Version: git-24.339.59423-18ab1d5
+Depends: libc, luci-app-dae
+Source: /feed/luci-app-dae
+SourceName: luci-i18n-dae-zh-cn
+License: Apache-2.0
+Section: luci
+SourceDateEpoch: 1733329823
+Maintainer: Tianling Shen <cnsztl@immortalwrt.org>
+Architecture: all
+Installed-Size: 991
+Filename: luci-i18n-dae-zh-cn_git-24.339.59423-18ab1d5_all.ipk
+Size: 1795
+SHA256sum: 579d161ec673392a551db095b8333a5316fffe57b817794f835c90fd080a25d5
+Description:  Translation for luci-app-dae - 简体中文 (Chinese Simplified)
+
+Package: luci-i18n-daed-zh-cn
+Version: git-24.339.59423-18ab1d5
+Depends: libc, luci-app-daed
+Source: /feed/luci-app-daed
+SourceName: luci-i18n-daed-zh-cn
+Section: luci
+SourceDateEpoch: 1733329823
+Architecture: all
+Installed-Size: 914
+Filename: luci-i18n-daed-zh-cn_git-24.339.59423-18ab1d5_all.ipk
+Size: 1669
+SHA256sum: 1833297e9684a0132f58343fe4eb9bfa04d5340c601ceb9019f5a78044b59648
+Description:  Translation for luci-app-daed - 简体中文 (Chinese Simplified)
+
+Package: v2ray-geoip
+Version: 2024-12-07-1
+Depends: libc
+Source: /feed/v2ray-geodata
+SourceName: v2ray-geoip
+License: CC-BY-SA-4.0
+LicenseFiles: LICENSE
+Section: net
+SourceDateEpoch: 1733329823
+Maintainer: openwrt-plus <git@github.com>
+Architecture: all
+Installed-Size: 3400181
+Filename: v2ray-geoip_2024-12-07-1_all.ipk
+Size: 3123852
+SHA256sum: 0cdfddfd4827b6f9f317797e4c58a5385884456c44de65056c5d99cc28132efe
+Description:  GeoIP List for V2Ray
+
+Package: v2ray-geosite
+Version: 2024-12-07-1
+Depends: libc
+Source: /feed/v2ray-geodata
+SourceName: v2ray-geosite
+License: GPL-3.0
+LicenseFiles: LICENSE
+Section: net
+SourceDateEpoch: 1733329823
+Maintainer: openwrt-plus <git@github.com>
+Architecture: all
+Installed-Size: 2188487
+Filename: v2ray-geosite_2024-12-07-1_all.ipk
+Size: 2189007
+SHA256sum: f5032ff05ea3f10fb46740586ce7a507465bf29bc9dd12a52a3234255f8d411e
+Description:  Geosite List for V2Ray
 
