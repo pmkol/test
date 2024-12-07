@@ -80,11 +80,17 @@ jobs:
           sudo df -Th
           echo -e "PACKAGES: ${{ env.packages_list }}"
 
+      - name: Hack daed packages
+        run: |
+          sed -i 's/$(BPF_DEPENDS)//g' dae/Makefile
+          sed -i 's/$(BPF_DEPENDS)//g' daed/Makefile
+
       - name: Build packages
         uses: pmkol/openwrt-gh-action-sdk@main
         env:
           ARCH: ${{ matrix.arch }}-${{ matrix.tag }}
           FEEDNAME: packages_lite
+          PACKAGES: luci-app-dae luci-app-daed
           INDEX: 1
           KEY_BUILD: ${{ secrets.OPENWRT_PRIVATE_KEY }}
           NO_REFRESH_CHECK: true
