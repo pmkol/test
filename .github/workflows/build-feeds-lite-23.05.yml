@@ -86,7 +86,7 @@ jobs:
           sed -i 's/$(BPF_DEPENDS)//g' daed/Makefile
 
       - name: Build packages
-        uses: sbwml/openwrt-gh-action-sdk@helloworld
+        uses: pmkol/openwrt-gh-action-sdk@lite
         env:
           ARCH: ${{ matrix.arch }}-${{ matrix.tag }}
           FEEDNAME: packages_lite
