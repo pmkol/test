@@ -34,7 +34,7 @@ curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/base-files/etc/board.d/02_
 #git clone https://nanopi:nanopi@$gitea/sbwml/brcmfmac-firmware-4366b-pcie package/firmware/brcmfmac-firmware-4366b-pcie
 
 # armsr/armv8
-#rm -rf target/linux/armsr
+rm -rf target/linux/armsr
 #git clone https://nanopi:nanopi@$gitea/sbwml/target_linux_armsr target/linux/armsr
 
 # kernel - 6.x
