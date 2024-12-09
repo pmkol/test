@@ -3,8 +3,8 @@
 #################################################################
 
 # Rockchip - target - r4s/r5s only
-rm -rf target/linux/rockchip
-git clone https://$GITHUB_TOKEN@$github/pmkol/target_linux_rockchip target/linux/rockchip -b linux-6.11
+#rm -rf target/linux/rockchip
+#git clone https://$GITHUB_TOKEN@$github/pmkol/target_linux_rockchip target/linux/rockchip -b linux-6.11
 
 # bpf-headers - 6.11
 #sed -ri "s/(PKG_PATCHVER:=)[^\"]*/\16.11/" package/kernel/bpf-headers/Makefile
@@ -28,14 +28,14 @@ curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/base-files/etc/board.d/01_
 curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/base-files/etc/board.d/02_network > target/linux/x86/base-files/etc/board.d/02_network
 
 # bcm53xx - target
-rm -rf target/linux/bcm53xx
-git clone https://nanopi:nanopi@$gitea/sbwml/target_linux_bcm53xx target/linux/bcm53xx
-git clone https://nanopi:nanopi@$gitea/sbwml/brcmfmac-firmware-4366c-pcie package/firmware/brcmfmac-firmware-4366c-pcie
-git clone https://nanopi:nanopi@$gitea/sbwml/brcmfmac-firmware-4366b-pcie package/firmware/brcmfmac-firmware-4366b-pcie
+#rm -rf target/linux/bcm53xx
+#git clone https://nanopi:nanopi@$gitea/sbwml/target_linux_bcm53xx target/linux/bcm53xx
+#git clone https://nanopi:nanopi@$gitea/sbwml/brcmfmac-firmware-4366c-pcie package/firmware/brcmfmac-firmware-4366c-pcie
+#git clone https://nanopi:nanopi@$gitea/sbwml/brcmfmac-firmware-4366b-pcie package/firmware/brcmfmac-firmware-4366b-pcie
 
 # armsr/armv8
-rm -rf target/linux/armsr
-git clone https://nanopi:nanopi@$gitea/sbwml/target_linux_armsr target/linux/armsr
+#rm -rf target/linux/armsr
+#git clone https://nanopi:nanopi@$gitea/sbwml/target_linux_armsr target/linux/armsr
 
 # kernel - 6.x
 #curl -s https://$mirror/tags/kernel-6.6 > include/kernel-6.6
@@ -50,7 +50,7 @@ rm -rf target/linux/generic
 git clone https://$github/pmkol/target_linux_generic -b 6.11.6 target/linux/generic --depth=1
 
 # bcm53xx - fix build kernel with clang
-[ "$platform" = "bcm53xx" ] && [ "$KERNEL_CLANG_LTO" = "y" ] && rm -f target/linux/generic/hack-6.6/220-arm-gc_sections.patch target/linux/generic/hack-6.11/220-arm-gc_sections.patch
+#[ "$platform" = "bcm53xx" ] && [ "$KERNEL_CLANG_LTO" = "y" ] && rm -f target/linux/generic/hack-6.6/220-arm-gc_sections.patch target/linux/generic/hack-6.11/220-arm-gc_sections.patch
 
 # kernel modules
 rm -rf package/kernel/linux
