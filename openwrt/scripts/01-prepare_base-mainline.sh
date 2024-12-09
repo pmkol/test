@@ -54,7 +54,7 @@ git clone https://$github/pmkol/target_linux_generic -b 6.11.6 target/linux/gene
 
 # kernel modules
 rm -rf package/kernel/linux
-#git checkout package/kernel/linux
+git checkout package/kernel/linux
 pushd package/kernel/linux/modules
     rm -f [a-z]*.mk
     curl -Os https://$mirror/openwrt/patch/openwrt-6.x/modules/block.mk
